@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_mood"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Spinner
+        android:id="@+id/mood_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/moods_array"
+        />
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/radio_has_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Has Reason"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_no_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Reason"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
+
+    <EditText android:id="@+id/reason"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="Enter Reason, If Any"
+        android:gravity="top"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_send"
+        android:onClick="sendMessage"/>
+</LinearLayout>

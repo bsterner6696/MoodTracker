@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MoodTracker</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string-array name="moods_array">
+        <item>Sad</item>
+        <item>Happy</item>
+        <item>Angry</item>
+        <item>Fearful</item>
+        <item>Hollow</item>
+        <item>Content</item>
+    </string-array>
+</resources>
