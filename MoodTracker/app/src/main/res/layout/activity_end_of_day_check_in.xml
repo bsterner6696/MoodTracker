@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android='http://schemas.android.com/apk/res/android'
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_end_of_day_check_in"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:id="@+id/datePicker"></DatePicker>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Select the option that best describes how you ate today.  If you were hungry for the majority of the day, select 'Under-Ate'.  For examples of what would be condsidered 'healthy' or 'junk' food, visit (somewebsite.com)" />
+
+        <Spinner
+            android:id="@+id/diet_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:entries="@array/diet_array" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Enter the number of hours you were physically active today." />
+
+        <EditText
+            android:id="@+id/hours_of_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="number"
+            android:hint="Hours Of Activity"
+            android:gravity="top" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_send"
+            android:layout_margin="10dp"
+            android:onClick="addCheckIn" />
+    </LinearLayout>
+</ScrollView>
+

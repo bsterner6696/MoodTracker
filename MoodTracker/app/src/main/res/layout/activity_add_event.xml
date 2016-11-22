@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_mood"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textAlignment="center"
+        android:text="Was the event that occurred of a positive or negative nature?  IIf the event was neither, or you are unsure of what to define the nature of the event, select 'Neutral'."/>
+    <Spinner
+        android:id="@+id/effect_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:entries="@array/effects_array"
+        />
+
+    <EditText android:id="@+id/event"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:hint="Describe event"
+        android:gravity="top"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/button_send"
+        android:onClick="sendMessage"/>
+</LinearLayout>

@@ -42,12 +42,40 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         textView.setTextSize(10);
         textView.setText(message);
 
+        String eventsList = intent.getStringExtra("EXTRA_MESSAGE");
+        SQLiteDatabase eventsDB = null;
+        eventsDB = this.openOrCreateDatabase("events", MODE_PRIVATE, null);
+        Cursor eventsCursor = eventsDB.rawQuery("SELECT * FROM events", null);
+        int ColumnEvent = eventsCursor.getColumnIndex("event");
+        int ColumnEffect = eventsCursor.getColumnIndex("effect");
+        int ColumnEventTime = eventsCursor.getColumnIndex("time");
+
+        eventsCursor.moveToFirst();
+        if (eventsCursor!= null) {
+            do {
+                String Event = eventsCursor.getString(ColumnEvent);
+                String Effect = eventsCursor.getString(ColumnEffect);
+                String EventTime = eventsCursor.getString(ColumnEventTime);
+                eventsList = eventsList +"\n" + Event + "/" + Effect + "/" + EventTime;
+
+            } while (eventsCursor.moveToNext());
+        }
+        TextView eventsTextView = new TextView(this);
+        eventsTextView.setTextSize(10);
+        eventsTextView.setText(eventsList);
+
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_database);
         layout.addView(textView);
+        layout.addView(eventsTextView);
     }
 
     public void addMood (View view){
         Intent intent = new Intent(this, addMood.class);
+        startActivity(intent);
+    }
+
+    public void addEvent(View view){
+        Intent intent = new Intent(this, addEvent.class);
         startActivity(intent);
     }
 }

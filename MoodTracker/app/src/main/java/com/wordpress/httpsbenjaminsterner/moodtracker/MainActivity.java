@@ -18,4 +18,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void addEvent (View view){
+        Intent intent = new Intent(this, addEvent.class);
+        startActivity(intent);
+    }
+
+    public void checkInEndOfDay (View view){
+        Intent intent = new Intent(this, EndOfDayCheckIn.class);
+        startActivity(intent);
+    }
+
 }

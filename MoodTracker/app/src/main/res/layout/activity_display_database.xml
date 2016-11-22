@@ -11,4 +11,9 @@
         android:layout_height="wrap_content"
         android:text="Add Another Mood"
         android:onClick="addMood"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Another Event"
+        android:onClick="addEvent"/>
 </LinearLayout>

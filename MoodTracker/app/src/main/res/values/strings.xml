@@ -10,4 +10,21 @@
         <item>Hollow</item>
         <item>Content</item>
     </string-array>
+    <string-array name="effects_array">
+        <item>Positive</item>
+        <item>Negative</item>
+        <item>Neutral</item>
+    </string-array>
+    <string-array name="diet_array">
+        <item>Mostly Healthy Food</item>
+        <item>Some Healthy Some Junk</item>
+        <item>Mostly Junk Food</item>
+        <item>Under-Ate</item>
+    </string-array>
+    <string-array name="diet_values_array">
+        <item>healthy</item>
+        <item>ok</item>
+        <item>junk</item>
+        <item>malnourished</item>
+    </string-array>
 </resources>
