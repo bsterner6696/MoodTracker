@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".addMood" />
-        <activity android:name=".MoodDatabase" />
         <activity android:name=".EventDatabase" />
         <activity android:name=".DisplayDatabaseActivity" />
         <activity android:name=".addEvent" />

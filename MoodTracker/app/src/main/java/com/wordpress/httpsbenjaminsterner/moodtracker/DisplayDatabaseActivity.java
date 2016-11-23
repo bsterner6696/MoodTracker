@@ -28,7 +28,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         int ColumnTime = c.getColumnIndex("time");
 
         c.moveToFirst();
-        if (c!= null) {
+        if (c.moveToFirst()) {
             do {
                 String Mood = c.getString(ColumnMood);
                 String HasReason = c.getString(ColumnHasReason);
@@ -42,6 +42,29 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         textView.setTextSize(10);
         textView.setText(message);
 
+        String checkInsList = intent.getStringExtra("EXTRA_MESSAGE");
+        SQLiteDatabase checkInsDB = null;
+        checkInsDB = this.openOrCreateDatabase("checkIns", MODE_PRIVATE, null);
+        Cursor checkInsCursor = checkInsDB.rawQuery("SELECT * FROM checkIns", null);
+        int ColumnDiet = checkInsCursor.getColumnIndex("diet");
+        int ColumnActivity = checkInsCursor.getColumnIndex("activity");
+        int ColumnCheckInDate = checkInsCursor.getColumnIndex("checkInDate" +
+                "");
+
+        checkInsCursor.moveToFirst();
+        if (checkInsCursor.moveToFirst()) {
+            do {
+                String Diet = checkInsCursor.getString(ColumnDiet);
+                Double Activity = checkInsCursor.getDouble(ColumnActivity);
+                String CheckInDate = checkInsCursor.getString(ColumnCheckInDate);
+                checkInsList = checkInsList +"\n" + Diet + "/" + Activity + "/" + CheckInDate;
+
+            } while (checkInsCursor.moveToNext());
+        }
+        TextView checkInsTextView = new TextView(this);
+        checkInsTextView.setTextSize(10);
+        checkInsTextView.setText(checkInsList);
+
         String eventsList = intent.getStringExtra("EXTRA_MESSAGE");
         SQLiteDatabase eventsDB = null;
         eventsDB = this.openOrCreateDatabase("events", MODE_PRIVATE, null);
@@ -51,7 +74,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         int ColumnEventTime = eventsCursor.getColumnIndex("time");
 
         eventsCursor.moveToFirst();
-        if (eventsCursor!= null) {
+        if (eventsCursor.moveToFirst()) {
             do {
                 String Event = eventsCursor.getString(ColumnEvent);
                 String Effect = eventsCursor.getString(ColumnEffect);
@@ -67,6 +90,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_database);
         layout.addView(textView);
         layout.addView(eventsTextView);
+        layout.addView(checkInsTextView);
     }
 
     public void addMood (View view){
