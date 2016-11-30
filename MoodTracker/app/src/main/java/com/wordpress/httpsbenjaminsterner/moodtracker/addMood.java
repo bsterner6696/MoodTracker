@@ -18,16 +18,20 @@ import android.widget.Spinner;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class addMood extends AppCompatActivity  implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks{
+public class addMood extends AppCompatActivity {
 
     private boolean selectedHasReason = true;
     @Override
@@ -36,6 +40,7 @@ public class addMood extends AppCompatActivity  implements GoogleApiClient.OnCon
         setContentView(R.layout.activity_add_mood);
 
     }
+
     public static class Moods implements BaseColumns {
         public static final String TABLE_NAME = "moods";
         public static final String COLUMN_NAME_MOOD = "mood";
@@ -66,16 +71,10 @@ public class addMood extends AppCompatActivity  implements GoogleApiClient.OnCon
     }
     public void sendMessage(View view){
 
-        GoogleApiClient locationApi = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
 
-        locationApi.connect();
         String weather = "";
         try {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+           /// if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -83,20 +82,47 @@ public class addMood extends AppCompatActivity  implements GoogleApiClient.OnCon
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
-                return;
+               // return;
+           // }
+            String longitude = "-120";
+            String latitude = "30";
+
+            if (MainActivity.locationApi.isConnected()){
+
+                Location location = LocationServices.FusedLocationApi.getLastLocation(MainActivity.locationApi);
+                longitude = String.valueOf(location.getLongitude());
+                latitude = String.valueOf(location.getLatitude());
             }
-            Location location = LocationServices.FusedLocationApi.getLastLocation(locationApi);
-            String longitude = String.valueOf(location.getLongitude());
-            String latitude = String.valueOf(location.getLatitude());
+
             String apiKey = "1ff12d7057e1f2c8dfe2971f2672c1ea";
             String weatherApiUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon="+longitude+"&appid="+apiKey;
+            String weatherResults = "";
             URL encodedUrl = new URL(weatherApiUrl);
-            BufferedReader in = new BufferedReader((new InputStreamReader(encodedUrl.openStream())));
-            String weatherResults;
-            while ((weatherResults = in.readLine()) != null){
-                System.out.println(weatherResults);
+            HttpURLConnection con = null;
+            InputStream inStream = null;
+            try {
+                con = (HttpURLConnection) (encodedUrl.openConnection());
+                con.setRequestMethod("GET");
+                con.setDoInput(true);
+                con.setDoOutput(true);
+                con.connect();
+
+                StringBuffer buffer = new StringBuffer();
+                inStream = con.getInputStream();
+                BufferedReader bufferReader = new BufferedReader((new InputStreamReader(inStream)));
+                String line;
+                while ((line = bufferReader.readLine()) != null)
+                    buffer.append(line + "rn");
+                inStream.close();
+                con.disconnect();
+                weatherResults = buffer.toString();
+            } catch (Throwable T) {
+                T.printStackTrace();
+            } finally {
+                try{inStream.close();}catch(Throwable T) {}
+                try{con.disconnect();}catch(Throwable T) {}
             }
-            in.close();
+
             JSONObject jObj = new JSONObject(weatherResults);
             JSONArray jArr = jObj.getJSONArray("weather");
             JSONObject weatherObject = jArr.getJSONObject(0);
@@ -143,19 +169,6 @@ public class addMood extends AppCompatActivity  implements GoogleApiClient.OnCon
         return jObj.getString(tagName);
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
 
 }
