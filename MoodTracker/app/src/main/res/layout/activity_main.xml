@@ -24,6 +24,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="clearDB"
+        android:text="clearEventsDB"
         android:onClick="clearDB"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clearMoodDB"
+        android:onClick="clearMoodDB"/>
 </LinearLayout>

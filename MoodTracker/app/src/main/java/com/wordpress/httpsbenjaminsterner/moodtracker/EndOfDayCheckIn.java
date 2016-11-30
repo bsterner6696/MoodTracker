@@ -34,6 +34,7 @@ public class EndOfDayCheckIn extends AppCompatActivity {
     public static String CreateDatabase(){
         return CHECKINS_CREATE_ENTRIES;
     }
+
     public void addCheckIn(View view){
         Intent intent = new Intent(this, DisplayDatabaseActivity.class);
         DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
@@ -72,7 +73,7 @@ public class EndOfDayCheckIn extends AppCompatActivity {
             if (checkInsDB != null)
                 checkInsDB.close();
         }
-
+        intent.putExtra("EXTRA_MESSAGE", "Database Updated");
         startActivity(intent);
 
     }

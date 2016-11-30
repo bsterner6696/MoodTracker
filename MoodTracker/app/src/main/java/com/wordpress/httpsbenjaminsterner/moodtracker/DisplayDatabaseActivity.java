@@ -26,6 +26,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         int ColumnHasReason = c.getColumnIndex("hasReason");
         int ColumnReason = c.getColumnIndex("reason");
         int ColumnTime = c.getColumnIndex("time");
+        int ColumnWeather = c.getColumnIndex("weather");
 
         c.moveToFirst();
         if (c.moveToFirst()) {
@@ -34,7 +35,8 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
                 String HasReason = c.getString(ColumnHasReason);
                 String Reason = c.getString(ColumnReason);
                 String Time = c.getString(ColumnTime);
-                message = message +"\n" + Mood + "/" + HasReason + "/" + Reason + "/" + Time;
+                String Weather = c.getString(ColumnWeather);
+                message = message +"\n" + Mood + "/" + HasReason + "/" + Reason + "/" + Time + "/" + Weather;
 
             } while (c.moveToNext());
         }
@@ -102,4 +104,6 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         Intent intent = new Intent(this, addEvent.class);
         startActivity(intent);
     }
+
+
 }

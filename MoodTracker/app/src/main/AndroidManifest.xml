@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wordpress.httpsbenjaminsterner.moodtracker">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:allowBackup="true"
+        android:name="android.support.multidex.MultiDexApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -16,10 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".addMood" />
-        <activity android:name=".EventDatabase" />
         <activity android:name=".DisplayDatabaseActivity" />
         <activity android:name=".addEvent" />
-        <activity android:name=".EndOfDayCheckIn"></activity>
+        <activity android:name=".EndOfDayCheckIn" />
     </application>
 
 </manifest>
