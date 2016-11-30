@@ -40,7 +40,7 @@ public class addMood extends AppCompatActivity {
         setContentView(R.layout.activity_add_mood);
 
     }
-
+    public String weather = "";
     public static class Moods implements BaseColumns {
         public static final String TABLE_NAME = "moods";
         public static final String COLUMN_NAME_MOOD = "mood";
@@ -69,67 +69,81 @@ public class addMood extends AppCompatActivity {
                 break;
         }
     }
-    public void sendMessage(View view){
+    public void sendMessage(View view) throws InterruptedException {
+        weather = "";
+        Thread thread = new Thread(new Runnable() {
 
+            @Override
+            public void run() {
+                try  {
+                    //Your code goes here
 
-        String weather = "";
-        try {
-           /// if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-               // return;
-           // }
-            String longitude = "-120";
-            String latitude = "30";
+                    try {
+                        /// if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        // return;
+                        // }
+                        String longitude = "-120";
+                        String latitude = "30";
 
-            if (MainActivity.locationApi.isConnected()){
+                        if (MainActivity.locationApi.isConnected()){
 
-                Location location = LocationServices.FusedLocationApi.getLastLocation(MainActivity.locationApi);
-                longitude = String.valueOf(location.getLongitude());
-                latitude = String.valueOf(location.getLatitude());
+                            Location location = LocationServices.FusedLocationApi.getLastLocation(MainActivity.locationApi);
+                            longitude = String.valueOf(location.getLongitude());
+                            latitude = String.valueOf(location.getLatitude());
+                        }
+
+                        String apiKey = "1ff12d7057e1f2c8dfe2971f2672c1ea";
+                        String weatherApiUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon="+longitude+"&appid="+apiKey;
+                        String weatherResults = "";
+                        URL encodedUrl = new URL(weatherApiUrl);
+                        HttpURLConnection con = null;
+                        InputStream inStream = null;
+                        try {
+                            con = (HttpURLConnection) (encodedUrl.openConnection());
+                            con.setRequestMethod("GET");
+                            con.setDoInput(true);
+                            con.setDoOutput(true);
+                            con.connect();
+
+                            StringBuffer buffer = new StringBuffer();
+                            inStream = con.getInputStream();
+                            BufferedReader bufferReader = new BufferedReader((new InputStreamReader(inStream)));
+                            String line;
+                            while ((line = bufferReader.readLine()) != null)
+                                buffer.append(line + "rn");
+                            inStream.close();
+                            con.disconnect();
+                            weatherResults = buffer.toString();
+                        } catch (Throwable T) {
+                            System.out.print(T);
+                        } finally {
+                            try{inStream.close();}catch(Throwable T) {}
+                            try{con.disconnect();}catch(Throwable T) {}
+                        }
+
+                        JSONObject jObj = new JSONObject(weatherResults);
+                        JSONArray jArr = jObj.getJSONArray("weather");
+                        JSONObject weatherObject = jArr.getJSONObject(0);
+                        weather = getString("main", weatherObject);
+                    } catch (Exception e){
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        });
 
-            String apiKey = "1ff12d7057e1f2c8dfe2971f2672c1ea";
-            String weatherApiUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon="+longitude+"&appid="+apiKey;
-            String weatherResults = "";
-            URL encodedUrl = new URL(weatherApiUrl);
-            HttpURLConnection con = null;
-            InputStream inStream = null;
-            try {
-                con = (HttpURLConnection) (encodedUrl.openConnection());
-                con.setRequestMethod("GET");
-                con.setDoInput(true);
-                con.setDoOutput(true);
-                con.connect();
+        thread.start();
+        thread.join();
 
-                StringBuffer buffer = new StringBuffer();
-                inStream = con.getInputStream();
-                BufferedReader bufferReader = new BufferedReader((new InputStreamReader(inStream)));
-                String line;
-                while ((line = bufferReader.readLine()) != null)
-                    buffer.append(line + "rn");
-                inStream.close();
-                con.disconnect();
-                weatherResults = buffer.toString();
-            } catch (Throwable T) {
-                T.printStackTrace();
-            } finally {
-                try{inStream.close();}catch(Throwable T) {}
-                try{con.disconnect();}catch(Throwable T) {}
-            }
-
-            JSONObject jObj = new JSONObject(weatherResults);
-            JSONArray jArr = jObj.getJSONArray("weather");
-            JSONObject weatherObject = jArr.getJSONObject(0);
-            weather = getString("main", weatherObject);
-        } catch (Exception e){
-
-        }
 
 
 
