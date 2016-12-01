@@ -17,7 +17,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_database);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra("EXTRA_MESSAGE");
+        String message = "MOODS DB \n\n";
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_database);
 
         SQLiteDatabase moodsDB = null;
@@ -41,12 +41,12 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
                     String Time = c.getString(ColumnTime);
                     String Weather = c.getString(ColumnWeather);
                     String Severity = c.getString(ColumnSeverity);
-                    message = message +"\n\n Mood: " + Mood +" / Severity: " + Severity + " /Has Reason?: " + HasReason + " / Reason: " + Reason + " / Timestamp: " + Time + " /  Weather: " + Weather;
+                    message = message +"MOOD: " + Mood +" \n SEVERITY: " + Severity + " \nHAS REASON?: " + HasReason + "\nREASON: " + Reason + "\nTIMESTAMP: " + Time + "\nWEATHER: " + Weather + "\n\n";
 
                 } while (c.moveToNext());
             }
             textView = new TextView(this);
-            textView.setTextSize(20);
+            textView.setTextSize(12);
             textView.setText(message);
             layout.addView(textView);
         } catch (Throwable T) {
@@ -55,7 +55,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
             if(moodsDB!=null) moodsDB.close();
         }
 
-        String checkInsList = intent.getStringExtra("EXTRA_MESSAGE");
+        String checkInsList = "\n CHECK INS DB \n\n";
         SQLiteDatabase checkInsDB = null;
         TextView checkInsTextView = null;
         try {
@@ -63,8 +63,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
             Cursor checkInsCursor = checkInsDB.rawQuery("SELECT * FROM checkIns", null);
             int ColumnDiet = checkInsCursor.getColumnIndex("diet");
             int ColumnActivity = checkInsCursor.getColumnIndex("activity");
-            int ColumnCheckInDate = checkInsCursor.getColumnIndex("checkInDate" +
-                    "");
+            int ColumnCheckInDate = checkInsCursor.getColumnIndex("checkInDate");
 
             checkInsCursor.moveToFirst();
             if (checkInsCursor.moveToFirst()) {
@@ -72,12 +71,12 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
                     String Diet = checkInsCursor.getString(ColumnDiet);
                     Double Activity = checkInsCursor.getDouble(ColumnActivity);
                     String CheckInDate = checkInsCursor.getString(ColumnCheckInDate);
-                    checkInsList = checkInsList +"\n" + Diet + "/" + Activity + "/" + CheckInDate;
+                    checkInsList = checkInsList +"\nDIET: " + Diet + "\nACTIVITY: " + Activity + "\nDATE; " + CheckInDate + "\n\n";
 
                 } while (checkInsCursor.moveToNext());
             }
             checkInsTextView = new TextView(this);
-            checkInsTextView.setTextSize(20);
+            checkInsTextView.setTextSize(12);
             checkInsTextView.setText(checkInsList);
             layout.addView(checkInsTextView);
         } catch (Throwable T) {
@@ -86,7 +85,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
             if (checkInsDB!=null) checkInsDB.close();
         }
 
-        String eventsList = intent.getStringExtra("EXTRA_MESSAGE");
+        String eventsList = "\nEVENTS\n\n";
         SQLiteDatabase eventsDB = null;
         try {
             eventsDB = this.openOrCreateDatabase("events", MODE_PRIVATE, null);
@@ -101,12 +100,12 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
                     String Event = eventsCursor.getString(ColumnEvent);
                     String Effect = eventsCursor.getString(ColumnEffect);
                     String EventTime = eventsCursor.getString(ColumnEventTime);
-                    eventsList = eventsList +"\n" + Event + "/" + Effect + "/" + EventTime;
+                    eventsList = eventsList +"EVENT: " + Event + "\n EFFECT: " + Effect + "\nTIME" + EventTime + "\n\n";
 
                 } while (eventsCursor.moveToNext());
             }
             TextView eventsTextView = new TextView(this);
-            eventsTextView.setTextSize(20);
+            eventsTextView.setTextSize(12);
             eventsTextView.setText(eventsList);
             layout.addView(eventsTextView);
         } catch (Throwable T) {

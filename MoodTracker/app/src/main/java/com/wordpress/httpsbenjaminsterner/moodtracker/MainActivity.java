@@ -77,7 +77,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Intent intent = new Intent(this, addMood.class);
         startActivity(intent);
     }
-
+    public void CheckOverTime(View view){
+        Intent intent = new Intent(this, CheckMoodsOverTimePeriod.class);
+        startActivity(intent);
+    }
 
     public void addEvent (View view){
         Intent intent = new Intent(this, addEvent.class);
