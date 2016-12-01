@@ -3,12 +3,12 @@
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
     <string-array name="moods_array">
-        <item>Sad</item>
-        <item>Happy</item>
-        <item>Angry</item>
-        <item>Fearful</item>
-        <item>Hollow</item>
         <item>Content</item>
+        <item>Happy</item>
+        <item>Angry/Irritated</item>
+        <item>Fearful</item>
+        <item>Sad</item>
+        <item>Empty</item>
     </string-array>
     <string-array name="effects_array">
         <item>Positive</item>

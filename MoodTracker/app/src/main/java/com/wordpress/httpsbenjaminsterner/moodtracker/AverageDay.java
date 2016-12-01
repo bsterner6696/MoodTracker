@@ -1,5 +1,6 @@
 package com.wordpress.httpsbenjaminsterner.moodtracker;
 
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -55,5 +56,7 @@ public class AverageDay extends AppCompatActivity {
             if (averageDayDB != null)
                 averageDayDB.close();
         }
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
