@@ -18,81 +18,103 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String message = intent.getStringExtra("EXTRA_MESSAGE");
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_database);
 
         SQLiteDatabase moodsDB = null;
-        moodsDB = this.openOrCreateDatabase("moods", MODE_PRIVATE, null);
-        Cursor c = moodsDB.rawQuery("SELECT * FROM moods", null);
-        int ColumnMood = c.getColumnIndex("mood");
-        int ColumnHasReason = c.getColumnIndex("hasReason");
-        int ColumnReason = c.getColumnIndex("reason");
-        int ColumnTime = c.getColumnIndex("time");
-        int ColumnWeather = c.getColumnIndex("weather");
+        TextView textView = null;
+        try {
+            moodsDB = this.openOrCreateDatabase("moods", MODE_PRIVATE, null);
+            Cursor c = moodsDB.rawQuery("SELECT * FROM moods", null);
+            int ColumnMood = c.getColumnIndex("mood");
+            int ColumnHasReason = c.getColumnIndex("hasReason");
+            int ColumnReason = c.getColumnIndex("reason");
+            int ColumnTime = c.getColumnIndex("time");
+            int ColumnWeather = c.getColumnIndex("weather");
+            int ColumnSeverity = c.getColumnIndex("severity");
 
-        c.moveToFirst();
-        if (c.moveToFirst()) {
-            do {
-                String Mood = c.getString(ColumnMood);
-                String HasReason = c.getString(ColumnHasReason);
-                String Reason = c.getString(ColumnReason);
-                String Time = c.getString(ColumnTime);
-                String Weather = c.getString(ColumnWeather);
-                message = message +"\n" + Mood + "/" + HasReason + "/" + Reason + "/" + Time + "/" + Weather;
+            c.moveToFirst();
+            if (c.moveToFirst()) {
+                do {
+                    String Mood = c.getString(ColumnMood);
+                    String HasReason = c.getString(ColumnHasReason);
+                    String Reason = c.getString(ColumnReason);
+                    String Time = c.getString(ColumnTime);
+                    String Weather = c.getString(ColumnWeather);
+                    String Severity = c.getString(ColumnSeverity);
+                    message = message +"\n\n Mood: " + Mood +" / Severity: " + Severity + " /Has Reason?: " + HasReason + " / Reason: " + Reason + " / Timestamp: " + Time + " /  Weather: " + Weather;
 
-            } while (c.moveToNext());
+                } while (c.moveToNext());
+            }
+            textView = new TextView(this);
+            textView.setTextSize(20);
+            textView.setText(message);
+            layout.addView(textView);
+        } catch (Throwable T) {
+            System.out.print(T);
+        } finally {
+            if(moodsDB!=null) moodsDB.close();
         }
-        TextView textView = new TextView(this);
-        textView.setTextSize(10);
-        textView.setText(message);
 
         String checkInsList = intent.getStringExtra("EXTRA_MESSAGE");
         SQLiteDatabase checkInsDB = null;
-        checkInsDB = this.openOrCreateDatabase("checkIns", MODE_PRIVATE, null);
-        Cursor checkInsCursor = checkInsDB.rawQuery("SELECT * FROM checkIns", null);
-        int ColumnDiet = checkInsCursor.getColumnIndex("diet");
-        int ColumnActivity = checkInsCursor.getColumnIndex("activity");
-        int ColumnCheckInDate = checkInsCursor.getColumnIndex("checkInDate" +
-                "");
+        TextView checkInsTextView = null;
+        try {
+            checkInsDB = this.openOrCreateDatabase("checkIns", MODE_PRIVATE, null);
+            Cursor checkInsCursor = checkInsDB.rawQuery("SELECT * FROM checkIns", null);
+            int ColumnDiet = checkInsCursor.getColumnIndex("diet");
+            int ColumnActivity = checkInsCursor.getColumnIndex("activity");
+            int ColumnCheckInDate = checkInsCursor.getColumnIndex("checkInDate" +
+                    "");
 
-        checkInsCursor.moveToFirst();
-        if (checkInsCursor.moveToFirst()) {
-            do {
-                String Diet = checkInsCursor.getString(ColumnDiet);
-                Double Activity = checkInsCursor.getDouble(ColumnActivity);
-                String CheckInDate = checkInsCursor.getString(ColumnCheckInDate);
-                checkInsList = checkInsList +"\n" + Diet + "/" + Activity + "/" + CheckInDate;
+            checkInsCursor.moveToFirst();
+            if (checkInsCursor.moveToFirst()) {
+                do {
+                    String Diet = checkInsCursor.getString(ColumnDiet);
+                    Double Activity = checkInsCursor.getDouble(ColumnActivity);
+                    String CheckInDate = checkInsCursor.getString(ColumnCheckInDate);
+                    checkInsList = checkInsList +"\n" + Diet + "/" + Activity + "/" + CheckInDate;
 
-            } while (checkInsCursor.moveToNext());
+                } while (checkInsCursor.moveToNext());
+            }
+            checkInsTextView = new TextView(this);
+            checkInsTextView.setTextSize(20);
+            checkInsTextView.setText(checkInsList);
+            layout.addView(checkInsTextView);
+        } catch (Throwable T) {
+            System.out.print(T);
+        } finally {
+            if (checkInsDB!=null) checkInsDB.close();
         }
-        TextView checkInsTextView = new TextView(this);
-        checkInsTextView.setTextSize(10);
-        checkInsTextView.setText(checkInsList);
 
         String eventsList = intent.getStringExtra("EXTRA_MESSAGE");
         SQLiteDatabase eventsDB = null;
-        eventsDB = this.openOrCreateDatabase("events", MODE_PRIVATE, null);
-        Cursor eventsCursor = eventsDB.rawQuery("SELECT * FROM events", null);
-        int ColumnEvent = eventsCursor.getColumnIndex("event");
-        int ColumnEffect = eventsCursor.getColumnIndex("effect");
-        int ColumnEventTime = eventsCursor.getColumnIndex("time");
+        try {
+            eventsDB = this.openOrCreateDatabase("events", MODE_PRIVATE, null);
+            Cursor eventsCursor = eventsDB.rawQuery("SELECT * FROM events", null);
+            int ColumnEvent = eventsCursor.getColumnIndex("event");
+            int ColumnEffect = eventsCursor.getColumnIndex("effect");
+            int ColumnEventTime = eventsCursor.getColumnIndex("time");
 
-        eventsCursor.moveToFirst();
-        if (eventsCursor.moveToFirst()) {
-            do {
-                String Event = eventsCursor.getString(ColumnEvent);
-                String Effect = eventsCursor.getString(ColumnEffect);
-                String EventTime = eventsCursor.getString(ColumnEventTime);
-                eventsList = eventsList +"\n" + Event + "/" + Effect + "/" + EventTime;
+            eventsCursor.moveToFirst();
+            if (eventsCursor.moveToFirst()) {
+                do {
+                    String Event = eventsCursor.getString(ColumnEvent);
+                    String Effect = eventsCursor.getString(ColumnEffect);
+                    String EventTime = eventsCursor.getString(ColumnEventTime);
+                    eventsList = eventsList +"\n" + Event + "/" + Effect + "/" + EventTime;
 
-            } while (eventsCursor.moveToNext());
+                } while (eventsCursor.moveToNext());
+            }
+            TextView eventsTextView = new TextView(this);
+            eventsTextView.setTextSize(20);
+            eventsTextView.setText(eventsList);
+            layout.addView(eventsTextView);
+        } catch (Throwable T) {
+            System.out.print(T);
+        } finally {
+            if (eventsDB!=null) eventsDB.close();
         }
-        TextView eventsTextView = new TextView(this);
-        eventsTextView.setTextSize(10);
-        eventsTextView.setText(eventsList);
 
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_database);
-        layout.addView(textView);
-        layout.addView(eventsTextView);
-        layout.addView(checkInsTextView);
     }
 
     public void addMood (View view){
