@@ -154,7 +154,7 @@ public class addMood extends AppCompatActivity {
         Spinner moodSpinner = (Spinner) findViewById(R.id.mood_spinner);
         String Mood = String.valueOf(moodSpinner.getSelectedItem());
         Spinner severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
-        Integer Severity = Integer.parseInt(String.valueOf(severitySpinner.getSelectedItem()));
+        int Severity = Integer.parseInt(String.valueOf(severitySpinner.getSelectedItem()));
         SQLiteDatabase moodsDB = null;
         try {
             moodsDB = this.openOrCreateDatabase("moods", MODE_PRIVATE, null);

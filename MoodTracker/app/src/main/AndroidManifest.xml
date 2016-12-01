@@ -24,7 +24,8 @@
         <activity android:name=".addEvent" />
         f
         <activity android:name=".EndOfDayCheckIn" />
-        <activity android:name=".AverageDay"></activity>
+        <activity android:name=".AverageDay" />
+        <activity android:name=".CheckMoodsOverTimePeriod"></activity>
     </application>
 
 </manifest>
