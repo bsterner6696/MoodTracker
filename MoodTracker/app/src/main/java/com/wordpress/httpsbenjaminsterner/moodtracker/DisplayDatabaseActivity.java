@@ -116,6 +116,10 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
 
     }
 
+    public void GoHome (View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
     public void addMood (View view){
         Intent intent = new Intent(this, addMood.class);
         startActivity(intent);

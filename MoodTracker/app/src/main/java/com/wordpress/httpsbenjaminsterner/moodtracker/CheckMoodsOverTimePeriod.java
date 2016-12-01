@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,6 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
             this.Date = date;
         }
     }
-
     public class MoodAndActivity{
         public String Mood;
         public String HasReason;
@@ -55,6 +55,21 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
             this.HoursOfActivity = hoursOfActivity;
             this.HoursOfSleep = hoursOfSleep;
         }
+    }
+    private static String MakeTimeStampUsable(String TimeStamp){
+        String monthFromTimeStamp = TimeStamp.substring(5, 7);
+        int month = Integer.parseInt(monthFromTimeStamp);
+        month--;
+        String string2 = String.format("%02d", month);
+        String string1 = TimeStamp.substring(0, 5);
+        String string3 = TimeStamp.substring(7, 19);
+        String result = string1 + string2 + string3;
+        return result;
+    }
+    private static DateTime parseDateTime(String input){
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        DateTime dateTime  = DateTime.parse(input, DateTimeFormat.forPattern(pattern));
+        return dateTime;
     }
 
     public void queryDB(View view){
@@ -103,10 +118,17 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
             int AverageDayColumnActivity = averageDayCursor.getColumnIndex("activity");
             int AverageDayColumnSleep = averageDayCursor.getColumnIndex("sleep");
 
-            String AverageDiet = averageDayCursor.getString(AverageDayColumnDiet);
-            Double AverageActivity = averageDayCursor.getDouble(AverageDayColumnActivity);
-            Double AverageSleep = averageDayCursor.getDouble(AverageDayColumnSleep);
-
+            String AverageDiet = "ok";
+            Double AverageActivity = 1.0;
+            Double AverageSleep = 7.0;
+            averageDayCursor.moveToFirst();
+            if (averageDayCursor.moveToFirst()){
+                do{
+                    AverageDiet = averageDayCursor.getString(AverageDayColumnDiet);
+                    AverageActivity = averageDayCursor.getDouble(AverageDayColumnActivity);
+                    AverageSleep = averageDayCursor.getDouble(AverageDayColumnSleep);
+                } while (averageDayCursor.moveToNext());
+            }
 
 
             List<CheckIn> checkIns = new ArrayList<CheckIn>();
@@ -131,9 +153,10 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
                     int Severity = moodsCursor.getInt(MoodsColumnSeverity);
                     String Weather = moodsCursor.getString(MoodsColumnWeather);
                     String Time = moodsCursor.getString(MoodsColumnTime);
+                    //String time = MakeTimeStampUsable(Time);
                     String dateFromTimeStamp = Time.substring(0, Math.min(Time.length(), 10));
                     DateTime date = DateTime.parse(dateFromTimeStamp);
-                    DateTime dateAndTime = DateTime.parse(Time);
+                    DateTime dateAndTime = parseDateTime(Time);
                     Boolean isCheckedIn = false;
                     int checkInIndex = 0;
                     if (dateAndTime.isAfter(beginDate) && dateAndTime.isBefore(endDate)){
@@ -168,7 +191,7 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
             if (checkInsDB != null) checkInsDB.close();
             if (averageDayDB != null) averageDayDB.close();
         }
-        String results = "Moods and Related infor for query:";
+        String results = "Moods and Related info for query:";
         for (int index = 0; index < moodDataList.size(); index++){
             MoodAndActivity datum = moodDataList.get(index);
             String Mood = datum.Mood;
