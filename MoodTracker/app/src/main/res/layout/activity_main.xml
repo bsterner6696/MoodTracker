@@ -14,8 +14,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Set Average DAy"
+        android:onClick="addMood"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Add Event"
-        android:onClick="addEvent"/>
+        android:onClick="setAverageDay"/>
     <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Intent intent = new Intent(this, addEvent.class);
         startActivity(intent);
     }
+    public void setAverageDay (View view){
+        Intent intent = new Intent(this, AverageDay.class);
+        startActivity(intent);
+    }
 
     public void checkInEndOfDay (View view){
         Intent intent = new Intent(this, EndOfDayCheckIn.class);
