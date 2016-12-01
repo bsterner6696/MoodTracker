@@ -142,7 +142,7 @@ public class addMood extends AppCompatActivity {
         });
 
         thread.start();
-        thread.join();
+        Thread.sleep(5000);
 
 
 
