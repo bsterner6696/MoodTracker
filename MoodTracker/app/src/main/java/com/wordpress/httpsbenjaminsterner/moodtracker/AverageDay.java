@@ -27,7 +27,7 @@ public class AverageDay extends AppCompatActivity {
     private static final String AVERAGE_DAY_CREATE_ENTRIES = "CREATE TABLE IF NOT EXISTS " + averageDay.TABLE_NAME + " (" + averageDay._ID + " INTEGER PRIMARY KEY," + averageDay.COLUMN_NAME_DIET + " VARCHAR ," + averageDay.COLUMN_NAME_ACTIVITY + " DECIMAL,"
             + averageDay.COLUMN_NAME_SLEEP + " DECIMAL" + " )";
 
-    private void setAverageDay(View view){
+    public void setAverageDay(View view){
         Spinner dietSpinner = (Spinner) findViewById(R.id.diet_spinner);
         String diet = getResources().getStringArray(R.array.diet_values_array)[dietSpinner.getSelectedItemPosition()];
 

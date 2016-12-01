@@ -48,9 +48,10 @@ public class addMood extends AppCompatActivity {
         public static final String COLUMN_NAME_REASON = "reason";
         public static final String COLUMN_NAME_TIME = "time";
         public static final String COLUMN_NAME_WEATHER = "weather";
+        public static final String COLUMN_NAME_SEVERITY = "severity";
     }
     private static final String MOODS_CREATE_ENTRIES = "CREATE TABLE IF NOT EXISTS " + addMood.Moods.TABLE_NAME + " (" + addMood.Moods._ID + " INTEGER PRIMARY KEY," + addMood.Moods.COLUMN_NAME_MOOD + " VARCHAR ," + addMood.Moods.COLUMN_NAME_HASREASON + " BOOLEAN,"
-            + addMood.Moods.COLUMN_NAME_REASON + " VARCHAR," + addMood.Moods.COLUMN_NAME_TIME + " TIMESTAMP," + Moods.COLUMN_NAME_WEATHER + " VARCHAR )";
+            + addMood.Moods.COLUMN_NAME_REASON + " VARCHAR," + addMood.Moods.COLUMN_NAME_TIME + " TIMESTAMP," + Moods.COLUMN_NAME_WEATHER + " VARCHAR, "+ Moods.COLUMN_NAME_SEVERITY + " INTEGER )";
 
     public static String CreateDatabase(){ return MOODS_CREATE_ENTRIES; }
     public void onRadioButtonClicked(View view){
@@ -142,7 +143,7 @@ public class addMood extends AppCompatActivity {
         });
 
         thread.start();
-        Thread.sleep(5000);
+        thread.join();
 
 
 
@@ -152,7 +153,8 @@ public class addMood extends AppCompatActivity {
         String Reason = reasonEditText.getText().toString();
         Spinner moodSpinner = (Spinner) findViewById(R.id.mood_spinner);
         String Mood = String.valueOf(moodSpinner.getSelectedItem());
-
+        Spinner severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
+        Integer Severity = Integer.parseInt(String.valueOf(severitySpinner.getSelectedItem()));
         SQLiteDatabase moodsDB = null;
         try {
             moodsDB = this.openOrCreateDatabase("moods", MODE_PRIVATE, null);
@@ -165,8 +167,8 @@ public class addMood extends AppCompatActivity {
             for (char character : characterArray){
                 reason = reason.replace(""+character, "");
             }
-            String MOODS_ADD_ENTRY = "INSERT INTO " + Moods.TABLE_NAME + " (" + Moods.COLUMN_NAME_MOOD + ", " + Moods.COLUMN_NAME_HASREASON + ", " + Moods.COLUMN_NAME_REASON + ", " + Moods.COLUMN_NAME_TIME + ", " + Moods.COLUMN_NAME_WEATHER +") VALUES ('"
-                    + mood + "', '" + hasReason + "', '" + reason + "', " + "CURRENT_TIMESTAMP, '"+ weather +"' );";
+            String MOODS_ADD_ENTRY = "INSERT INTO " + Moods.TABLE_NAME + " (" + Moods.COLUMN_NAME_MOOD + ", " + Moods.COLUMN_NAME_HASREASON + ", " + Moods.COLUMN_NAME_REASON + ", " + Moods.COLUMN_NAME_TIME + ", " + Moods.COLUMN_NAME_WEATHER +", "+ Moods.COLUMN_NAME_SEVERITY+ ") VALUES ('"
+                    + mood + "', '" + hasReason + "', '" + reason + "', " + "CURRENT_TIMESTAMP, '"+ weather +"', " + Severity +" );";
             moodsDB.execSQL(MOODS_ADD_ENTRY);
         } catch (Exception e) {
             Log.e("Error", "Error", e);

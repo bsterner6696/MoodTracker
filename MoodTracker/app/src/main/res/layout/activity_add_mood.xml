@@ -12,6 +12,17 @@
         android:layout_height="wrap_content"
         android:entries="@array/moods_array"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Enter the severity of the mood, with 1 being 'barely noticeable' and 10 being 'the most intense feeling to ever be felt'." />
+    <Spinner
+        android:id="@+id/severity_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/severity_array"
+        />
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
