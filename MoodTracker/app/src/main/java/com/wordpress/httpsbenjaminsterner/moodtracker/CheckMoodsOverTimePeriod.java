@@ -191,7 +191,8 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
             if (checkInsDB != null) checkInsDB.close();
             if (averageDayDB != null) averageDayDB.close();
         }
-        String results = "Moods and Related info for query:";
+        String results = "Moods and Related info for query:\n\n";
+        results += weighMoodList(moodDataList);
         for (int index = 0; index < moodDataList.size(); index++){
             MoodAndActivity datum = moodDataList.get(index);
             String Mood = datum.Mood;
@@ -211,6 +212,177 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
         moodList.setText(results);
         layout.addView(moodList);
 
+
+    }
+    private String weighMoodList(List<MoodAndActivity> moodList){
+        List<MoodAndActivity> contentList = new ArrayList<>();
+        List contentWeighedScores = new ArrayList();
+        double averageContentScore = 0;
+        int contentCount = 0;
+        List<MoodAndActivity> happyList = new ArrayList<>();
+        List happyWeighedScores = new ArrayList();
+        double averageHappyScore = 0;
+        int happyCount = 0;
+        List<MoodAndActivity> angryList = new ArrayList<>();
+        List angryWeighedScores = new ArrayList();
+        double averageAngryScore = 0;
+        int angryCount = 0;
+        List<MoodAndActivity> fearfulList = new ArrayList<>();
+        List fearfulWeighedScores = new ArrayList();
+        double averageFearfulScore = 0;
+        int fearfulCount = 0;
+        List<MoodAndActivity> sadList = new ArrayList<>();
+        List sadWeighedScores = new ArrayList();
+        double averageSadScore = 0;
+        int sadCount = 0;
+        List<MoodAndActivity> emptyList = new ArrayList<>();
+        List emptyWeighedScores = new ArrayList();
+        double averageEmptyScore = 0;
+        int emptyCount = 0;
+        List<MoodAndActivity> undefinedList = new ArrayList<>();
+        int undefinedCount = 0;
+
+        for (int index = 0; index < moodList.size(); index++){
+            MoodAndActivity datum = moodList.get(index);
+            String datumMood = datum.Mood;
+            switch (datumMood){
+                case "Content":
+                    contentList.add(datum);
+                    break;
+                case "Happy":
+                    happyList.add(datum);
+                    break;
+                case "Angry/Irritated":
+                    angryList.add(datum);
+                    break;
+                case "Fearful":
+                    fearfulList.add(datum);
+                    break;
+                case "Sad":
+                    sadList.add(datum);
+                    break;
+                case "Empty":
+                    emptyList.add(datum);
+                    break;
+                default:
+                    undefinedList.add(datum);
+                    break;
+            }
+        }
+        contentCount = contentList.size();
+        happyCount = happyList.size();
+        angryCount = angryList.size();
+        fearfulCount = fearfulList.size();
+        sadCount = sadList.size();
+        emptyCount = emptyList.size();
+        undefinedCount = undefinedList.size();
+        averageContentScore = weighScorePositive(contentList);
+        averageHappyScore = weighScorePositive(happyList);
+        averageAngryScore = weighScoreNegative(angryList);
+        averageFearfulScore = weighScoreNegative(fearfulList);
+        averageEmptyScore = weighScoreNeutral(emptyList);
+        averageSadScore = weighScoreNegative(sadList);
+        String weighedScores = "For this dataset, the average weighed scores are as follows: \n \n Happy:\nScore: " + averageHappyScore + "\n Count: " + happyCount
+                + "\n Sad:\nScore: " + averageSadScore + "\nCount: " + sadCount
+                + "\n Content:\nScore: " + averageContentScore + "\nCount: " + contentCount
+                + "\n Angry:\nScore: " + averageAngryScore + "\nCount: " + angryCount
+                + "\n Fearful:\nScore: " + averageFearfulScore + "\nCount: " + fearfulCount
+                + "\n Empty:\nScore: " + averageEmptyScore + "\nCount: " + emptyCount
+                + "\n" + undefinedCount + " moods were registered that did not fall under these parameters.\n\n";
+        return weighedScores;
+
+
+    }
+    private double weighScorePositive(List<MoodAndActivity> moodList){
+        double averageWeighedScore = 0;
+        double totalScore = 0;
+        for (int index = 0; index < moodList.size(); index++){
+            MoodAndActivity datum = moodList.get(index);
+            double score = datum.Severity;
+            if (datum.HasReason == "true"){
+                score = score * .75;
+            }
+            totalScore += score;
+        }
+        averageWeighedScore = totalScore/moodList.size();
+        return averageWeighedScore;
+
+    }
+    private double weighScoreNeutral(List<MoodAndActivity> moodList){
+        double totalScore = 0;
+        double averageWeighedScore = 0;
+        for (int index = 0; index < moodList.size(); index++){
+            MoodAndActivity datum = moodList.get(index);
+            double score = datum.Severity;
+            if (datum.HasReason == "false"){
+                score = score * .75;
+            }
+            totalScore += score;
+        }
+        averageWeighedScore = totalScore / moodList.size();
+        return averageWeighedScore;
+    }
+
+    private double weighScoreNegative(List<MoodAndActivity> moodList){
+        double averageWeighedScore = 0;
+        double totalScore = 0;
+        for (int index = 0; index < moodList.size(); index++){
+            MoodAndActivity datum = moodList.get(index);
+            double score = datum.Severity;
+            if (datum.HasReason == "true"){
+                score = score * .75;
+            }
+            if (datum.HoursOfSleep < 4){
+                score = score * .4;
+            } else if (datum.HoursOfSleep >= 4 && datum.HoursOfSleep < 6){
+                score = score *.6;
+            } else if (datum.HoursOfSleep >= 6 && datum.HoursOfSleep < 8){
+                score = score*.8;
+            }
+            switch (datum.Weather){
+                case "Thunderstorm":
+                    score = score*.8;
+                    break;
+                case "Drizzle":
+                    score = score*.8;
+                    break;
+                case "Rain":
+                    score = score * .8;
+                    break;
+                case "Snow":
+                    score = score * .8;
+                    break;
+                case "Atmosphere":
+                    score = score * .9;
+                    break;
+                case "Extreme":
+                    score = score * .7;
+                    break;
+                case "Clouds":
+                    score = score * .9;
+                    break;
+                default:
+                    score = score * .9;
+                    break;
+            }
+            switch (datum.Diet){
+                case "ok":
+                    score = score * .9;
+                    break;
+                case "junk":
+                    score = score * .8;
+                    break;
+                case "malnourished":
+                    score = score * .7;
+                    break;
+            }
+            if (datum.HoursOfActivity < 1){
+                score = score * .9;
+            }
+            totalScore += score;
+        }
+        averageWeighedScore = totalScore/moodList.size();
+        return averageWeighedScore;
 
     }
 }
