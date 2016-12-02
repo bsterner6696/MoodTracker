@@ -55,15 +55,16 @@ public class MoodBar {
 
 
         final String ticker = exampleString;
-        final String title = res.getString(
-                R.string.mood_bar_notification_title_template, exampleString);
+        final String title = "Mood Tracker";
         final String text = exampleString;
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.
-                .setDefaults(Notification.DEFAULT_ALL)
+                //.setDefaults(Notification.DEFAULT_ALL)
                 .setLights(0,0,0)
+                .setVibrate(null)
+                .setSound(null)
 
 
                 // Set required fields, including the small icon, the
@@ -111,7 +112,7 @@ public class MoodBar {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(text)
                         .setBigContentTitle(title)
-                        .setSummaryText("Dummy summary text"))
+                        .setSummaryText(""))
 
                 // Example additional actions for this notification. These will
                 // only show on devices running Android 4.1 or later, so you
@@ -119,19 +120,14 @@ public class MoodBar {
                 // content intent provides access to the same actions in
                 // another way.
                 .addAction(
-                        R.drawable.ic_action_stat_share,
-                        res.getString(R.string.action_share),
+                        R.drawable.home_symbol,
+                        "Home",
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                Intent.createChooser(new Intent(Intent.ACTION_SEND)
-                                        .setType("text/plain")
-                                        .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
+                                new Intent(context, MainActivity.class),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
-                .addAction(
-                        R.drawable.ic_action_stat_reply,
-                        res.getString(R.string.action_reply),
-                        null)
+
 
                 // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(false)
@@ -153,7 +149,7 @@ public class MoodBar {
 
     /**
      * Cancels any notifications of this type previously shown using
-     * {@link #notify(Context, String, int)}.
+     * {@link #notify(Context, String)}.
      */
     @TargetApi(Build.VERSION_CODES.ECLAIR)
     public static void cancel(final Context context) {
