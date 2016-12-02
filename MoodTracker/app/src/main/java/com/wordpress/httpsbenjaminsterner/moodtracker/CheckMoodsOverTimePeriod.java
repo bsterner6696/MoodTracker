@@ -1,5 +1,6 @@
 package com.wordpress.httpsbenjaminsterner.moodtracker;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
@@ -210,7 +212,14 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
         TextView moodList = new TextView(this);
         moodList.setTextSize(20);
         moodList.setText(results);
+        TextView homeButton = (TextView) findViewById(R.id.homeButton);
+
+        layout.removeAllViews();
+        layout.addView(homeButton);
         layout.addView(moodList);
+        ScrollView scroller = (ScrollView) findViewById(R.id.scroller);
+        scroller.scrollTo(0, scroller.getTop());
+
 
 
     }
@@ -384,5 +393,9 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
         averageWeighedScore = totalScore/moodList.size();
         return averageWeighedScore;
 
+    }
+    public void GoHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

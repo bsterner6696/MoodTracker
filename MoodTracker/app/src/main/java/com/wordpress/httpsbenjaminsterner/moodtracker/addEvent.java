@@ -59,4 +59,8 @@ public class addEvent extends AppCompatActivity {
         intent.putExtra("EXTRA_MESSAGE", "Database Updated");
         startActivity(intent);
     }
+    public void GoHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

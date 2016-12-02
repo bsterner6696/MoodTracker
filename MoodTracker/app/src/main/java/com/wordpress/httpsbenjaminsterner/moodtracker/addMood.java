@@ -184,6 +184,10 @@ public class addMood extends AppCompatActivity {
     private static String getString(String tagName, JSONObject jObj) throws Exception {
         return jObj.getString(tagName);
     }
+    public void GoHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
 
