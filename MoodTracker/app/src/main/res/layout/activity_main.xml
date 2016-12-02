@@ -9,27 +9,32 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Add Mood"
         android:onClick="addMood"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Set Average DAy"
         android:onClick="setAverageDay"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Add Event"
         android:onClick="addEvent"/>
     <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="End Of Day Check In"
+        android:layout_margin="10dp"
     android:onClick="checkInEndOfDay"/>
     <Button
         android:layout_width="wrap_content"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content"
-        android:text="CheckOverTime"
+        android:text="Check Moods Over Time"
         android:onClick="CheckOverTime"/>
     <!--
     <Button

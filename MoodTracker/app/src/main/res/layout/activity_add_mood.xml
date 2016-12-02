@@ -12,6 +12,11 @@
         android:text="Home"
         android:layout_margin="10dp"
         android:onClick="GoHome"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Select your current mood from the drop down list below."/>
     <Spinner
         android:id="@+id/mood_spinner"
         android:layout_width="match_parent"
