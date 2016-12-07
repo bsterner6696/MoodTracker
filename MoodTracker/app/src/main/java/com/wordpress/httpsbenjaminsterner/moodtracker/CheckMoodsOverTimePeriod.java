@@ -30,10 +30,12 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
         public String Diet;
         public Double Activity;
         public DateTime Date;
-        protected CheckIn(String diet, Double activity, DateTime date){
+        public Double Sleep;
+        protected CheckIn(String diet, Double activity, DateTime date, Double sleep){
             this.Diet = diet;
             this.Activity = activity;
             this.Date = date;
+            this.Sleep = sleep;
         }
     }
     public class MoodAndActivity{
@@ -113,6 +115,7 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
             int CheckInsColumnDiet = checkInsCursor.getColumnIndex("diet");
             int CheckInsColumnActivity = checkInsCursor.getColumnIndex("activity");
             int CheckInsColumnCheckInDate = checkInsCursor.getColumnIndex("checkInDate");
+            int CheckInsColumnSleep = checkInsCursor.getColumnIndex("sleep");
 
             averageDayDB = this.openOrCreateDatabase("averageDay", MODE_PRIVATE, null);
             Cursor averageDayCursor = averageDayDB.rawQuery("SELECT * FROM averageDay", null);
@@ -141,7 +144,8 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
                     Double Activity = checkInsCursor.getDouble(CheckInsColumnActivity);
                     String CheckInDateString = checkInsCursor.getString(CheckInsColumnCheckInDate);
                     DateTime CheckInDate = DateTime.parse(CheckInDateString);
-                    CheckIn checkIn = new CheckIn(Diet,Activity,CheckInDate);
+                    Double Sleep = checkInsCursor.getDouble(CheckInsColumnSleep);
+                    CheckIn checkIn = new CheckIn(Diet,Activity,CheckInDate,Sleep);
                     checkIns.add(checkIn);
                 } while (checkInsCursor.moveToNext());
             }
@@ -171,7 +175,7 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
                         if (isCheckedIn){
                             String Diet = checkIns.get(checkInIndex).Diet;
                             Double HoursOfActivity = checkIns.get(checkInIndex).Activity;
-                            Double HoursOfSleep = AverageSleep;
+                            Double HoursOfSleep = checkIns.get(checkInIndex).Sleep;
                             MoodAndActivity moodData = new MoodAndActivity(Mood, HasReason, Reason, dateAndTime, Severity, Weather, Diet, HoursOfActivity, HoursOfSleep);
                             moodDataList.add(moodData);
                         }
