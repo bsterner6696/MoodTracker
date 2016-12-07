@@ -36,6 +36,17 @@
         android:layout_height="wrap_content"
         android:text="Check Moods Over Time"
         android:onClick="CheckOverTime"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:text="Start Walk Sensor"
+        android:onClick="StartWalkSensor"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stepCount"
+        android:layout_margin="10dp" />
     <!--
     <Button
         android:layout_width="wrap_content"

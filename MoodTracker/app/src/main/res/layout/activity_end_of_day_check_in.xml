@@ -49,6 +49,20 @@
             android:inputType="number"
             android:hint="Hours Of Activity"
             android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Enter the number of hours of sleep you had last night and/or today.  Do not enter the number of hours of sleep you are about to have." />
+
+        <EditText
+            android:id="@+id/hours_of_sleep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="number"
+            android:hint="Hours Of Sleep"
+            android:gravity="top" />
 
         <Button
             android:layout_width="wrap_content"
@@ -56,6 +70,7 @@
             android:text="@string/button_send"
             android:layout_margin="10dp"
             android:onClick="addCheckIn" />
+
 
     </LinearLayout>
 </ScrollView>

@@ -27,9 +27,10 @@ public class EndOfDayCheckIn extends AppCompatActivity {
         public static final String COLUMN_NAME_DIET = "diet";
         public static final String COLUMN_NAME_ACTIVITY = "activity";
         public static final String COLUMN_NAME_DATE = "checkInDate";
+        public static final String COLUMN_NAME_SLEEP = "sleep";
     }
     private static final String CHECKINS_CREATE_ENTRIES = "CREATE TABLE IF NOT EXISTS " + CheckIns.TABLE_NAME + " (" + CheckIns._ID + " INTEGER PRIMARY KEY," + CheckIns.COLUMN_NAME_DIET + " VARCHAR ," + CheckIns.COLUMN_NAME_ACTIVITY + " DECIMAL,"
-            + CheckIns.COLUMN_NAME_DATE + " DATE" + " )";
+            +CheckIns.COLUMN_NAME_SLEEP + " DECIMAL, "+ CheckIns.COLUMN_NAME_DATE + " DATE" + " )";
 
     public static String CreateDatabase(){
         return CHECKINS_CREATE_ENTRIES;
@@ -50,10 +51,13 @@ public class EndOfDayCheckIn extends AppCompatActivity {
 
         EditText hoursOfActivityView = (EditText) findViewById(R.id.hours_of_activity);
         String hoursOfActivity = hoursOfActivityView.getText().toString();
+        EditText hoursOfSleepView = (EditText) findViewById(R.id.hours_of_sleep);
+        String hoursOfSleep = hoursOfSleepView.getText().toString();
         String regex = "'";
         char[] characterArray = regex.toCharArray();
         for (char character : characterArray){
             hoursOfActivity = hoursOfActivity.replace(""+character, "");
+            hoursOfSleep = hoursOfSleep.replace(""+character, "");
         }
 
         SQLiteDatabase checkInsDB = null;
@@ -64,8 +68,8 @@ public class EndOfDayCheckIn extends AppCompatActivity {
             checkInsDB.delete("checkIns", "checkInDate=?", new String[] {checkInDate});
 
 
-            String CHECKINS_ADD_ENTRY = "INSERT INTO " + CheckIns.TABLE_NAME + " (" + CheckIns.COLUMN_NAME_DIET + ", " + CheckIns.COLUMN_NAME_ACTIVITY + ", " + CheckIns.COLUMN_NAME_DATE + ") VALUES ('"
-                    + diet + "', '" + hoursOfActivity + "', '"+ checkInDate +"');";
+            String CHECKINS_ADD_ENTRY = "INSERT INTO " + CheckIns.TABLE_NAME + " (" + CheckIns.COLUMN_NAME_DIET + ", " + CheckIns.COLUMN_NAME_ACTIVITY + ", " + CheckIns.COLUMN_NAME_DATE +","+CheckIns.COLUMN_NAME_SLEEP+") VALUES ('"
+                    + diet + "', '" + hoursOfActivity + "', '"+ checkInDate +"', '"+hoursOfSleep+"');";
             checkInsDB.execSQL(CHECKINS_ADD_ENTRY);
         } catch (Exception e) {
             Log.e("Error", "Error", e);

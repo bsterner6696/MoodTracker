@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.hardware.SensorEvent;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.hardware.SensorEventListener;
+import android.widget.TextView;
+
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,15 +34,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.wordpress.httpsbenjaminsterner.moodtracker.R.styleable.AppCompatTextView;
+import static com.wordpress.httpsbenjaminsterner.moodtracker.R.styleable.Spinner;
 import static com.wordpress.httpsbenjaminsterner.moodtracker.R.styleable.View;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks{
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, SensorEventListener{
 
+    private TextView textView;
     public static GoogleApiClient locationApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = (TextView) findViewById(R.id.stepCount);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -112,6 +122,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         moodsDB.execSQL(addMood.CreateDatabase());
         moodsDB.close();
     }
+    public void StartWalkSensor(View view){
+        SensorManager sManager;
+        Sensor walkSensor;
+        sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        walkSensor = sManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        sManager.registerListener(this, walkSensor, SensorManager.SENSOR_DELAY_FASTEST);
+
+    }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -164,5 +182,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        Sensor sensor = sensorEvent.sensor;
+        float[] values = sensorEvent.values;
+        int value = -1;
+        if (values.length >0){
+            value = (int) values [0];
+        }
+
+        if (sensor.getType() == Sensor.TYPE_STEP_COUNTER){
+            textView.setText(String.valueOf(value));
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 }
