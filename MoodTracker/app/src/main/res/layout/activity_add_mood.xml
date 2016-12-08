@@ -12,12 +12,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/homeButton"
         android:text="Home"
         android:layout_margin="10dp"
         android:onClick="GoHome"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/moodText"
         android:layout_margin="10dp"
         android:text="Select your current mood from the drop down list below."/>
     <Spinner
@@ -27,9 +29,17 @@
         android:layout_margin="10dp"
         android:entries="@array/moods_array"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moodButton"
+        android:text="Select Mood"
+        android:layout_margin="10dp"
+        android:onClick="SelectMood"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/severityText"
         android:layout_margin="10dp"
         android:text="Enter the severity of the mood, with 1 being 'barely noticeable' and 10 being 'the most intense feeling to ever be felt'." />
     <Spinner
@@ -39,9 +49,23 @@
         android:layout_height="wrap_content"
         android:entries="@array/severity_array"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/severityButton"
+        android:text="Select Severity"
+        android:layout_margin="10dp"
+        android:onClick="SelectSeverity"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reasonText"
+        android:layout_margin="10dp"
+        android:text="Do you have a discernible reason to be feeling the mood in question?"/>
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/reasonRadio"
         android:layout_margin="10dp"
         android:orientation="vertical">
         <RadioButton android:id="@+id/radio_has_reason"
@@ -55,20 +79,33 @@
             android:text="No Reason"
             android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
-
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hasReasonButton"
+        android:text="Continue"
+        android:layout_margin="10dp"
+        android:onClick="SelectHasReason"/>
     <EditText android:id="@+id/reason"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        android:hint="Enter Reason, If Any"
+        android:hint="Enter Reason"
         android:gravity="top"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/reasonButton"
         android:layout_margin="10dp"
         android:text="Add Mood"
-        android:onClick="sendMessage"/>
+        android:onClick="SelectReason"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/restartMoodButton"
+        android:layout_margin="10dp"
+        android:text="Start Mood Entry Over"
+        android:onClick="RestartSelection"/>
 </LinearLayout>
 </ScrollView>

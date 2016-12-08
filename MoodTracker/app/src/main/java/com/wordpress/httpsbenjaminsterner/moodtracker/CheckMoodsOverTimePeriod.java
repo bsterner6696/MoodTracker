@@ -297,14 +297,14 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
         averageFearfulScore = weighScoreNegative(fearfulList);
         averageEmptyScore = weighScoreNeutral(emptyList);
         averageSadScore = weighScoreNegative(sadList);
-        String weighedScores = "For this dataset, the average weighed scores are as follows: \n";
-        if (happyCount > 0) weighedScores = weighedScores +"\nHappy:\nScore: " + averageHappyScore + "\n Count: " + happyCount;
-        if (sadCount > 0) weighedScores = weighedScores + "\nSad:\nScore: " + averageSadScore + "\nCount: " + sadCount;
-        if (contentCount > 0) weighedScores = weighedScores + "\nContent:\nScore: " + averageContentScore + "\nCount: " + contentCount;
-        if (angryCount > 0) weighedScores = weighedScores + "\nAngry:\nScore: " + averageAngryScore + "\nCount: " + angryCount;
-        if (fearfulCount > 0) weighedScores = weighedScores + "\nFearful:\nScore: " + averageFearfulScore + "\nCount: " + fearfulCount;
-        if (emptyCount > 0) weighedScores = weighedScores + "\nEmpty:\nScore: " + averageEmptyScore + "\nCount: " + emptyCount;
-        if (undefinedCount > 0) weighedScores =  weighedScores + "\n" + undefinedCount + " moods were registered that did not fall under recognized moods.\n\n";
+        String weighedScores = "For this dataset, the average weighed scores are as follows:";
+        if (happyCount > 0) weighedScores = weighedScores +"\n\nHappy:\nScore: " + averageHappyScore + "\n Count: " + happyCount;
+        if (sadCount > 0) weighedScores = weighedScores + "\n\nSad:\nScore: " + averageSadScore + "\nCount: " + sadCount;
+        if (contentCount > 0) weighedScores = weighedScores + "\n\nContent:\nScore: " + averageContentScore + "\nCount: " + contentCount;
+        if (angryCount > 0) weighedScores = weighedScores + "\n\nAngry:\nScore: " + averageAngryScore + "\nCount: " + angryCount;
+        if (fearfulCount > 0) weighedScores = weighedScores + "\n\nFearful:\nScore: " + averageFearfulScore + "\nCount: " + fearfulCount;
+        if (emptyCount > 0) weighedScores = weighedScores + "\n\nEmpty:\nScore: " + averageEmptyScore + "\nCount: " + emptyCount;
+        if (undefinedCount > 0) weighedScores =  weighedScores + "\n\n" + undefinedCount + " moods were registered that did not fall under recognized moods.\n\n";
         return weighedScores;
 
 

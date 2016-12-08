@@ -15,6 +15,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,16 +36,57 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 public class addMood extends AppCompatActivity {
 
     private boolean selectedHasReason = true;
+    private Button homeButton;
+    private TextView moodText;
+    private Spinner moodSpinner;
+    private Button moodButton;
+    private Spinner severitySpinner;
+    private TextView severityText;
+    private Button severityButton;
+    private TextView hasReasonText;
+    private RadioGroup reasonRadio;
+    private Button hasReasonButton;
+    private EditText reason;
+    private Button reasonButton;
+    private Button restartButton;
+    private EditText reasonEditText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mood);
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
+        homeButton = (Button) findViewById(R.id.homeButton);
+        moodText = (TextView) findViewById(R.id.moodText);
+        moodSpinner = (Spinner) findViewById(R.id.mood_spinner);
+        moodButton = (Button) findViewById(R.id.moodButton);
+        severityText = (TextView) findViewById(R.id.severityText);
+        severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
+        severityButton = (Button) findViewById(R.id.severityButton);
+        hasReasonText = (TextView) findViewById(R.id.reasonText);
+        reasonRadio = (RadioGroup) findViewById(R.id.reasonRadio);
+        hasReasonButton = (Button) findViewById(R.id.hasReasonButton);
+        reason = (EditText) findViewById(R.id.reason);
+        reasonButton = (Button) findViewById(R.id.reasonButton);
+        restartButton = (Button) findViewById(R.id.restartMoodButton);
+        reasonEditText = (EditText) findViewById(R.id.reason);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(moodText);
+        layout.addView(moodSpinner);
+        layout.addView(moodButton);
+
 
     }
-    public String weather = "";
+    private String weather = "";
+    private String selectedMood = "";
+    private int selectedSeverity = 0;
+    private String selectedReason = "";
+
     public static class Moods implements BaseColumns {
         public static final String TABLE_NAME = "moods";
         public static final String COLUMN_NAME_MOOD = "mood";
@@ -70,8 +116,59 @@ public class addMood extends AppCompatActivity {
                 break;
         }
     }
-    public void sendMessage(View view) throws InterruptedException {
+    public void SelectMood(View view){
+        selectedMood = String.valueOf(moodSpinner.getSelectedItem());
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(severityText);
+        layout.addView(severitySpinner);
+        layout.addView(severityButton);
+    }
+
+    public void SelectSeverity(View view){
+
+        selectedSeverity = Integer.parseInt(String.valueOf(severitySpinner.getSelectedItem()));
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
+        layout.removeAllViews();
+
+        layout.addView(homeButton);
+        layout.addView(hasReasonText);
+        layout.addView(reasonRadio);
+        layout.addView(hasReasonButton);
+    }
+    public void SelectHasReason(View view){
+        String wrapUp = "You have selected:\nMood: " + selectedMood+"\nSeverity: "+ selectedSeverity+"\nHas Reason?: "+selectedHasReason+"\nWould you like to add the mood, or start the mood entry over?";
+        TextView wrapUpText = new TextView(this);
+        wrapUpText.setText(wrapUp);
+        wrapUpText.setTextSize(20);
+        LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        marginParams.setMargins(10, 10, 10, 10);
+        wrapUpText.setLayoutParams(marginParams);
+        if (selectedHasReason){
+            ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
+            layout.removeAllViews();
+            layout.addView(homeButton);
+            layout.addView(reason);
+            layout.addView(wrapUpText);
+            layout.addView(reasonButton);
+            layout.addView(restartButton);
+        }else {
+            ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
+            layout.removeAllViews();
+            layout.addView(homeButton);
+            layout.addView(wrapUpText);
+            layout.addView(reasonButton);
+            layout.addView(restartButton);
+        }
+    }
+    public void RestartSelection(View view){
+        Intent intent = new Intent(this, addMood.class);
+        startActivity(intent);
+    }
+    public void SelectReason(View view) throws InterruptedException {
         weather = "";
+        selectedReason = reasonEditText.getText().toString();
         Thread thread = new Thread(new Runnable() {
 
             @Override
@@ -149,12 +246,11 @@ public class addMood extends AppCompatActivity {
 
 
         Intent intent = new Intent(this, DisplayDatabaseActivity.class);
-        EditText reasonEditText = (EditText) findViewById(R.id.reason);
-        String Reason = reasonEditText.getText().toString();
-        Spinner moodSpinner = (Spinner) findViewById(R.id.mood_spinner);
-        String Mood = String.valueOf(moodSpinner.getSelectedItem());
-        Spinner severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
-        int Severity = Integer.parseInt(String.valueOf(severitySpinner.getSelectedItem()));
+        String Reason = selectedReason;
+
+        String Mood = selectedMood;
+
+        int Severity = selectedSeverity;
         SQLiteDatabase moodsDB = null;
         try {
             moodsDB = this.openOrCreateDatabase("moods", MODE_PRIVATE, null);
