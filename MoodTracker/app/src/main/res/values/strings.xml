@@ -2,6 +2,8 @@
     <string name="app_name">Mood Tracker</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
+    <string name ="diet_summary">Select the option that best describes how you ate today.  If you were hungry for the majority of the day, select \'Under-Ate\'.  For information on how to differentiate between \'healthy\' and \'junk\' food, visit <a href="http://healthyeating.sfgate.com/differentiate-between-junk-healthy-food-5231.html">this website</a>.</string>
+    <string name = "average_diet_summary">Select the option that best describes how you eat on an average day.  If you are usually hungry for the majority of the day, select \'Under-Ate\'.  For information on how to differentiate between \'healthy\' and \'junk\' food, visit <a href="http://healthyeating.sfgate.com/differentiate-between-junk-healthy-food-5231.html">this website</a>.</string>
     <string-array name="moods_array">
         <item>Happy</item>
         <item>Content</item>

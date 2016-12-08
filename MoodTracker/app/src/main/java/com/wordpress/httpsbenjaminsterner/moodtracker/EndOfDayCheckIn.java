@@ -5,22 +5,61 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Button;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class EndOfDayCheckIn extends AppCompatActivity {
-
+    private Button homeButton;
+    private TextView checkInDayText;
+    private DatePicker checkInDatePicker;
+    private Button checkInDateButton;
+    private TextView dietText;
+    private Spinner dietSpinner;
+    private Button dietButton;
+    private TextView activityText;
+    private EditText activityEditText;
+    private Button activityButton;
+    private TextView sleepText;
+    private EditText sleepEditText;
+    private Button checkInButton;
+    private String checkInDate;
+    private String diet;
+    private String hoursOfActivity;
+    private String hoursOfSleep;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_of_day_check_in);
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_end_of_day_check_in);
+        checkInDatePicker = (DatePicker) findViewById(R.id.datePicker);
+        homeButton = (Button)findViewById(R.id.homeButton);
+        checkInDayText = (TextView)findViewById(R.id.checkInDayText);
+        checkInDateButton = (Button)findViewById(R.id.selectCheckInDate);
+        dietText = (TextView)findViewById(R.id.dietText);
+        dietText.setMovementMethod(LinkMovementMethod.getInstance());
+        dietSpinner = (Spinner)findViewById(R.id.diet_spinner);
+        dietButton = (Button)findViewById(R.id.selectDiet);
+        activityText = (TextView)findViewById(R.id.activityText);
+        activityEditText = (EditText)findViewById(R.id.hours_of_activity);
+        activityButton = (Button)findViewById(R.id.selectActivity);
+        sleepText = (TextView)findViewById(R.id.sleepText);
+        sleepEditText = (EditText) findViewById(R.id.hours_of_sleep);
+        checkInButton = (Button)findViewById(R.id.addCheckIn);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(checkInDayText);
+        layout.addView(checkInDatePicker);
+        layout.addView(checkInDateButton);
     }
     public static class CheckIns implements BaseColumns {
         public static final String TABLE_NAME = "checkIns";
@@ -36,23 +75,40 @@ public class EndOfDayCheckIn extends AppCompatActivity {
         return CHECKINS_CREATE_ENTRIES;
     }
 
+    public void SelectCheckInDate(View view){
+        int day = checkInDatePicker.getDayOfMonth();
+        int month = checkInDatePicker.getMonth();
+        int year = checkInDatePicker.getYear();
+        month++;
+        checkInDate = year + "-" + month +"-" + day;
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_end_of_day_check_in);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(dietText);
+        layout.addView(dietSpinner);
+        layout.addView(dietButton);
+    }
+    public void SelectDiet(View view){
+        diet = getResources().getStringArray(R.array.diet_values_array)[dietSpinner.getSelectedItemPosition()];
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_end_of_day_check_in);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(activityText);
+        layout.addView(activityEditText);
+        layout.addView(activityButton);
+    }
+    public void SelectActivity(View view){
+        hoursOfActivity = activityEditText.getText().toString();
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_end_of_day_check_in);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(sleepText);
+        layout.addView(sleepEditText);
+        layout.addView(checkInButton);
+    }
     public void addCheckIn(View view){
         Intent intent = new Intent(this, DisplayDatabaseActivity.class);
-        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth();
-        int year = datePicker.getYear();
-        month++;
-        String checkInDate = year + "-" + month +"-" + day;
-
-
-        Spinner dietSpinner = (Spinner) findViewById(R.id.diet_spinner);
-        String diet = getResources().getStringArray(R.array.diet_values_array)[dietSpinner.getSelectedItemPosition()];
-
-        EditText hoursOfActivityView = (EditText) findViewById(R.id.hours_of_activity);
-        String hoursOfActivity = hoursOfActivityView.getText().toString();
-        EditText hoursOfSleepView = (EditText) findViewById(R.id.hours_of_sleep);
-        String hoursOfSleep = hoursOfSleepView.getText().toString();
+        hoursOfSleep = sleepEditText.getText().toString();
         String regex = "'";
         char[] characterArray = regex.toCharArray();
         for (char character : characterArray){

@@ -6,16 +6,49 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class AverageDay extends AppCompatActivity {
-
+    private TextView dietText;
+    private Button homeButton;
+    private Spinner dietSpinner;
+    private Button dietButton;
+    private TextView activityText;
+    private EditText activityEditText;
+    private Button activityButton;
+    private TextView sleepText;
+    private EditText sleepEditText;
+    private Button averageDayButton;
+    private String diet;
+    private String hoursOfActivity;
+    private String hoursOfSleep;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_average_day);
+        dietText = (TextView)findViewById(R.id.dietText);
+        dietText.setMovementMethod(LinkMovementMethod.getInstance());
+        homeButton = (Button)findViewById(R.id.homeButton);
+        dietSpinner = (Spinner)findViewById(R.id.diet_spinner);
+        dietButton = (Button) findViewById(R.id.dietButton);
+        activityText=(TextView)findViewById(R.id.activityText);
+        activityEditText=(EditText)findViewById(R.id.hours_of_activity);
+        activityButton = (Button)findViewById(R.id.activityButton);
+        sleepText = (TextView)findViewById(R.id.sleepText);
+        sleepEditText = (EditText) findViewById(R.id.hours_of_sleep);
+        averageDayButton = (Button)findViewById(R.id.averageDayButton);
+        ViewGroup layout = (ViewGroup)findViewById(R.id.activity_average_day);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(dietText);
+        layout.addView(dietSpinner);
+        layout.addView(dietButton);
     }
     public class averageDay implements BaseColumns {
         public static final String TABLE_NAME = "averageDay";
@@ -27,14 +60,28 @@ public class AverageDay extends AppCompatActivity {
     private static final String AVERAGE_DAY_CREATE_ENTRIES = "CREATE TABLE IF NOT EXISTS " + averageDay.TABLE_NAME + " (" + averageDay._ID + " INTEGER PRIMARY KEY," + averageDay.COLUMN_NAME_DIET + " VARCHAR ," + averageDay.COLUMN_NAME_ACTIVITY + " DECIMAL,"
             + averageDay.COLUMN_NAME_SLEEP + " DECIMAL" + " )";
 
-    public void setAverageDay(View view){
-        Spinner dietSpinner = (Spinner) findViewById(R.id.diet_spinner);
-        String diet = getResources().getStringArray(R.array.diet_values_array)[dietSpinner.getSelectedItemPosition()];
+    public void selectDiet(View view){
+        diet = getResources().getStringArray(R.array.diet_values_array)[dietSpinner.getSelectedItemPosition()];
+        ViewGroup layout = (ViewGroup)findViewById(R.id.activity_average_day);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(activityText);
+        layout.addView(activityEditText);
+        layout.addView(activityButton);
 
-        EditText hoursOfActivityView = (EditText) findViewById(R.id.hours_of_activity);
-        String hoursOfActivity = hoursOfActivityView.getText().toString();
-        EditText hoursOfSleepView = (EditText) findViewById(R.id.hours_of_sleep);
-        String hoursOfSleep = hoursOfSleepView.getText().toString();
+    }
+    public void selectActivity(View view){
+        hoursOfActivity = activityEditText.getText().toString();
+        ViewGroup layout = (ViewGroup)findViewById(R.id.activity_average_day);
+        layout.removeAllViews();
+        layout.addView(homeButton);
+        layout.addView(sleepText);
+        layout.addView(sleepEditText);
+        layout.addView(averageDayButton);
+    }
+
+    public void setAverageDay(View view){
+        hoursOfSleep = sleepEditText.getText().toString();
         String regex = "'";
         char[] characterArray = regex.toCharArray();
         for (char character : characterArray){

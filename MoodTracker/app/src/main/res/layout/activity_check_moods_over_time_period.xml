@@ -29,7 +29,7 @@
             android:datePickerMode="spinner"
             android:calendarViewShown="false"
             android:layout_margin="10dp"
-            android:id="@+id/datePickerBegin"></DatePicker>
+            android:id="@+id/datePickerBegin"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:datePickerMode="spinner"
             android:calendarViewShown="false"
             android:layout_margin="10dp"
-            android:id="@+id/datePickerEnd"></DatePicker>
+            android:id="@+id/datePickerEnd"/>
 
         <Button
             android:layout_width="match_parent"
@@ -49,5 +49,11 @@
             android:text="Query"
             android:layout_margin="10dp"
             android:onClick="queryDB" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resultsText"
+            android:layout_margin="10dp"
+            android:text=""/>
     </LinearLayout>
 </ScrollView>

@@ -13,14 +13,17 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/homeButton"
             android:text="Home"
             android:layout_margin="10dp"
             android:onClick="GoHome"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/dietText"
+            android:linksClickable="true"
             android:layout_margin="10dp"
-            android:text="Select the option that best describes how you eat on an average day.  If you are usually hungry for the majority of the day, select 'Under-Ate'.  For examples of what would be condsidered 'healthy' or 'junk' food, visit (somewebsite.com)" />
+            android:text="@string/average_diet_summary" />
 
         <Spinner
             android:id="@+id/diet_spinner"
@@ -28,10 +31,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:entries="@array/diet_array" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dietButton"
+            android:text="Continue"
+            android:layout_margin="10dp"
+            android:onClick="selectDiet" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/activityText"
             android:layout_margin="10dp"
             android:text="Enter the number of hours you are physically active on an average day." />
 
@@ -43,9 +54,17 @@
             android:inputType="number"
             android:hint="Hours Of Activity"
             android:gravity="top" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activityButton"
+            android:text="Continue"
+            android:layout_margin="10dp"
+            android:onClick="selectActivity" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/sleepText"
             android:layout_margin="10dp"
             android:text="Enter the number of hours of sleep you get on an average day." />
 
@@ -58,9 +77,10 @@
             android:hint="Hours Of Sleep"
             android:gravity="top" />
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button_send"
+            android:id="@+id/averageDayButton"
+            android:text="Set Average Day"
             android:layout_margin="10dp"
             android:onClick="setAverageDay" />
     </LinearLayout>

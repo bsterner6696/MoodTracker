@@ -13,20 +13,36 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/homeButton"
             android:text="Home"
             android:layout_margin="10dp"
             android:onClick="GoHome"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkInDayText"
+            android:layout_margin="10dp"
+            android:text="Select the todays date, or the day you are checking in for"/>
         <DatePicker
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:datePickerMode="spinner"
             android:calendarViewShown="false"
-            android:id="@+id/datePicker"></DatePicker>
+            android:id="@+id/datePicker"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectCheckInDate"
+            android:text="Continue"
+            android:layout_margin="10dp"
+            android:onClick="SelectCheckInDate" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/dietText"
             android:layout_margin="10dp"
-            android:text="Select the option that best describes how you ate today.  If you were hungry for the majority of the day, select 'Under-Ate'.  For examples of what would be condsidered 'healthy' or 'junk' food, visit (somewebsite.com)" />
+            android:linksClickable="true"
+            android:text="@string/diet_summary" />
 
         <Spinner
             android:id="@+id/diet_spinner"
@@ -34,13 +50,20 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:entries="@array/diet_array" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectDiet"
+            android:text="Continue"
+            android:layout_margin="10dp"
+            android:onClick="SelectDiet" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Enter the number of hours you were physically active today."
-            android:id="@+id/textView" />
+            android:id="@+id/activityText" />
 
         <EditText
             android:id="@+id/hours_of_activity"
@@ -50,10 +73,18 @@
             android:inputType="number"
             android:hint="Hours Of Activity"
             android:gravity="top" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectActivity"
+            android:text="Continue"
+            android:layout_margin="10dp"
+            android:onClick="SelectActivity" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:id="@+id/sleepText"
             android:text="Enter the number of hours of sleep you had last night and/or today.  Do not enter the number of hours of sleep you are about to have." />
 
         <EditText
@@ -68,7 +99,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Check IN"
+            android:id="@+id/addCheckIn"
+            android:text="Check In"
             android:layout_margin="10dp"
             android:onClick="addCheckIn" />
 

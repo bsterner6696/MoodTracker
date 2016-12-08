@@ -11,6 +11,9 @@
         <item name="android:textColorPrimaryInverse">@color/colorAccent</item>
     </style>
 
-    <style name="ReyTheme" parent="AppTheme" />
+    <style name="ReyTheme" parent="AppTheme" >
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
 
 </resources>

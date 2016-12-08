@@ -19,11 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckMoodsOverTimePeriod extends AppCompatActivity {
-
+    private TextView moodList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_moods_over_time_period);
+        ViewGroup layout = (ViewGroup)findViewById(R.id.activity_check_moods_over_time_period);
+        moodList = (TextView)findViewById(R.id.resultsText);
+        layout.removeView(moodList);
     }
 
     public class CheckIn{
@@ -207,15 +210,17 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
             String HasReason=datum.HasReason;
             String Reason=datum.Reason;
             DateTime DateAndTime= datum.DateAndTime;
+            String DateTimeString = DateAndTime.toString();
+            String Date = DateTimeString.substring(0,10);
+            String Time = DateTimeString.substring(11,16);
             int Severity= datum.Severity;
             String Weather= datum.Weather;
             String Diet = datum.Diet;
             Double HoursOfActivity = datum.HoursOfActivity;
             Double HoursOfSleep = datum.HoursOfSleep;
-            results = results + "\n\n DATETIME: "+DateAndTime+ "\nMOOD: " + Mood + "\nSEVERITY: " + Severity + "\nHASREASON: " + HasReason + "\nREASON: " + Reason
+            results = results + "\n\nDATE: "+Date+"\nTIME: "+Time+ "\nMOOD: " + Mood + "\nSEVERITY: " + Severity + "\nHASREASON: " + HasReason + "\nREASON: " + Reason
                     + "\nWEATHER: " + Weather + "\nDIET: " + Diet + "\nACTIVITY: " + HoursOfActivity +"hours\nSLEEP: " + HoursOfSleep + "hours";
         }
-        TextView moodList = new TextView(this);
         moodList.setTextSize(20);
         moodList.setText(results);
         TextView homeButton = (TextView) findViewById(R.id.homeButton);
