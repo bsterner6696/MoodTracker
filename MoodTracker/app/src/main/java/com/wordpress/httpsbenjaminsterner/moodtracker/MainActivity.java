@@ -40,13 +40,13 @@ import static com.wordpress.httpsbenjaminsterner.moodtracker.R.styleable.View;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, SensorEventListener{
 
-    private TextView textView;
+    //private TextView textView;
     public static GoogleApiClient locationApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.stepCount);
+        //textView = (TextView) findViewById(R.id.stepCount);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -122,14 +122,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         moodsDB.execSQL(addMood.CreateDatabase());
         moodsDB.close();
     }
-    public void StartWalkSensor(View view){
-        SensorManager sManager;
-        Sensor walkSensor;
-        sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        walkSensor = sManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        sManager.registerListener(this, walkSensor, SensorManager.SENSOR_DELAY_FASTEST);
-
+    public void clearCheckInsDB(View view){
+        SQLiteDatabase checkInsDB = null;
+        checkInsDB = this.openOrCreateDatabase("checkIns", MODE_PRIVATE, null);
+        checkInsDB.execSQL("DROP TABLE IF EXISTS checkIns");
+        checkInsDB = this.openOrCreateDatabase("checkIns", MODE_PRIVATE, null);
+        checkInsDB.execSQL(addMood.CreateDatabase());
+        checkInsDB.close();
     }
+//    public void StartWalkSensor(View view){
+//        SensorManager sManager;
+//        Sensor walkSensor;
+//        sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+//        walkSensor = sManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+//        sManager.registerListener(this, walkSensor, SensorManager.SENSOR_DELAY_FASTEST);
+//
+//    }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -194,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
 
         if (sensor.getType() == Sensor.TYPE_STEP_COUNTER){
-            textView.setText(String.valueOf(value));
+            //textView.setText(String.valueOf(value));
         }
     }
 

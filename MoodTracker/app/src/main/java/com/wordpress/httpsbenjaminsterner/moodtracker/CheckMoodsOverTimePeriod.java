@@ -174,8 +174,10 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
                         }
                         if (isCheckedIn){
                             String Diet = checkIns.get(checkInIndex).Diet;
-                            Double HoursOfActivity = checkIns.get(checkInIndex).Activity;
-                            Double HoursOfSleep = checkIns.get(checkInIndex).Sleep;
+                            Double HoursOfActivity = AverageActivity;
+                            Double HoursOfSleep = AverageSleep;
+                            if (checkIns.get(checkInIndex).Sleep != null) HoursOfSleep = checkIns.get(checkInIndex).Sleep;
+                            if (checkIns.get(checkInIndex).Activity != null) HoursOfActivity = checkIns.get(checkInIndex).Activity;
                             MoodAndActivity moodData = new MoodAndActivity(Mood, HasReason, Reason, dateAndTime, Severity, Weather, Diet, HoursOfActivity, HoursOfSleep);
                             moodDataList.add(moodData);
                         }
@@ -210,8 +212,8 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
             String Diet = datum.Diet;
             Double HoursOfActivity = datum.HoursOfActivity;
             Double HoursOfSleep = datum.HoursOfSleep;
-            results = results + "\n\n DATETIME: "+DateAndTime+ " MOOD: " + Mood + " SEVERITY: " + Severity + "\n HASREASON: " + HasReason + " REASON: " + Reason
-                    + " \n WEATHER: " + Weather + " DIET: " + Diet + " ACTIVITY: " + HoursOfActivity +" hours SLEEP: " + HoursOfSleep + "hours";
+            results = results + "\n\n DATETIME: "+DateAndTime+ "\nMOOD: " + Mood + "\nSEVERITY: " + Severity + "\nHASREASON: " + HasReason + "\nREASON: " + Reason
+                    + "\nWEATHER: " + Weather + "\nDIET: " + Diet + "\nACTIVITY: " + HoursOfActivity +"hours\nSLEEP: " + HoursOfSleep + "hours";
         }
         TextView moodList = new TextView(this);
         moodList.setTextSize(20);
@@ -295,13 +297,14 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
         averageFearfulScore = weighScoreNegative(fearfulList);
         averageEmptyScore = weighScoreNeutral(emptyList);
         averageSadScore = weighScoreNegative(sadList);
-        String weighedScores = "For this dataset, the average weighed scores are as follows: \n \n Happy:\nScore: " + averageHappyScore + "\n Count: " + happyCount
-                + "\n Sad:\nScore: " + averageSadScore + "\nCount: " + sadCount
-                + "\n Content:\nScore: " + averageContentScore + "\nCount: " + contentCount
-                + "\n Angry:\nScore: " + averageAngryScore + "\nCount: " + angryCount
-                + "\n Fearful:\nScore: " + averageFearfulScore + "\nCount: " + fearfulCount
-                + "\n Empty:\nScore: " + averageEmptyScore + "\nCount: " + emptyCount
-                + "\n" + undefinedCount + " moods were registered that did not fall under these parameters.\n\n";
+        String weighedScores = "For this dataset, the average weighed scores are as follows: \n";
+        if (happyCount > 0) weighedScores = weighedScores +"\nHappy:\nScore: " + averageHappyScore + "\n Count: " + happyCount;
+        if (sadCount > 0) weighedScores = weighedScores + "\nSad:\nScore: " + averageSadScore + "\nCount: " + sadCount;
+        if (contentCount > 0) weighedScores = weighedScores + "\nContent:\nScore: " + averageContentScore + "\nCount: " + contentCount;
+        if (angryCount > 0) weighedScores = weighedScores + "\nAngry:\nScore: " + averageAngryScore + "\nCount: " + angryCount;
+        if (fearfulCount > 0) weighedScores = weighedScores + "\nFearful:\nScore: " + averageFearfulScore + "\nCount: " + fearfulCount;
+        if (emptyCount > 0) weighedScores = weighedScores + "\nEmpty:\nScore: " + averageEmptyScore + "\nCount: " + emptyCount;
+        if (undefinedCount > 0) weighedScores =  weighedScores + "\n" + undefinedCount + " moods were registered that did not fall under recognized moods.\n\n";
         return weighedScores;
 
 

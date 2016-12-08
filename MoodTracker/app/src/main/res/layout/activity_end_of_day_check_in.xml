@@ -39,7 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Enter the number of hours you were physically active today." />
+            android:text="Enter the number of hours you were physically active today."
+            android:id="@+id/textView" />
 
         <EditText
             android:id="@+id/hours_of_activity"
@@ -65,9 +66,9 @@
             android:gravity="top" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button_send"
+            android:text="Check IN"
             android:layout_margin="10dp"
             android:onClick="addCheckIn" />
 

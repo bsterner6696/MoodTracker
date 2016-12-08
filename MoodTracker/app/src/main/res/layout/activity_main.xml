@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android='http://schemas.android.com/apk/res/android'
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,36 +11,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Add Mood"
-        android:onClick="addMood"/>
+        android:onClick="addMood" />
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Set Average DAy"
         android:onClick="setAverageDay"/>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Add Event"
         android:onClick="addEvent"/>
     <Button
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="End Of Day Check In"
         android:layout_margin="10dp"
     android:onClick="checkInEndOfDay"/>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:layout_height="wrap_content"
         android:text="Check Moods Over Time"
         android:onClick="CheckOverTime"/>
-    <Button
+    <!--<Button
         android:layout_width="wrap_content"
         android:layout_margin="10dp"
         android:layout_height="wrap_content"
@@ -47,7 +51,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/stepCount"
         android:layout_margin="10dp" />
-    <!--
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,5 +61,11 @@
         android:layout_height="wrap_content"
         android:text="clearMoodDB"
         android:onClick="clearMoodDB"/>
-        -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clear Check Ins DB"
+        android:onClick="clearCheckInsDB"/>-->
+
 </LinearLayout>
+</ScrollView>

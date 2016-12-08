@@ -9,7 +9,7 @@
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/mood_icon"
+        android:icon="@mipmap/m_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -23,7 +23,7 @@
         <activity android:name=".addMood" />
         <activity android:name=".DisplayDatabaseActivity" />
         <activity android:name=".addEvent" />
-        f
+
         <activity android:name=".EndOfDayCheckIn" />
         <activity android:name=".AverageDay" />
         <activity android:name=".CheckMoodsOverTimePeriod"></activity>
