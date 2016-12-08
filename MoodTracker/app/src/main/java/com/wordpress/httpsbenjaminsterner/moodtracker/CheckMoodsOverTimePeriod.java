@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class CheckMoodsOverTimePeriod extends AppCompatActivity {
     private TextView moodList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,7 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
         ViewGroup layout = (ViewGroup)findViewById(R.id.activity_check_moods_over_time_period);
         moodList = (TextView)findViewById(R.id.resultsText);
         layout.removeView(moodList);
+
     }
 
     public class CheckIn{
@@ -234,6 +237,7 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
 
 
     }
+
     private String weighMoodList(List<MoodAndActivity> moodList){
         List<MoodAndActivity> contentList = new ArrayList<>();
         List contentWeighedScores = new ArrayList();

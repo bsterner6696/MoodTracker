@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -120,7 +121,16 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         }
 
     }
-
+    public void ScrollCheckIns(View view){
+        ScrollView scroller = (ScrollView)findViewById(R.id.scroller);
+        TextView checkIns = (TextView)findViewById(R.id.checkInList);
+        scroller.scrollTo(0, checkIns.getTop());
+    }
+    public void ScrollEvents(View view){
+        ScrollView scroller = (ScrollView)findViewById(R.id.scroller);
+        TextView events = (TextView)findViewById(R.id.eventList);
+        scroller.scrollTo(0, events.getTop());
+    }
     public void GoHome (View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

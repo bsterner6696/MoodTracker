@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android='http://schemas.android.com/apk/res/android'
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/scroller">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,6 +26,20 @@
         android:layout_margin="10dp"
         android:text="Home"
         android:onClick="GoHome"/>
+    <Button
+        android:id="@+id/scrollCheckIns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scroll To Check Ins"
+        android:layout_margin="10dp"
+        android:onClick="ScrollCheckIns"/>
+    <Button
+        android:id="@+id/scrollEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scroll To Events"
+        android:layout_margin="10dp"
+        android:onClick="ScrollEvents"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
