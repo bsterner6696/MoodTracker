@@ -107,5 +107,11 @@
         android:layout_margin="10dp"
         android:text="Start Mood Entry Over"
         android:onClick="RestartSelection"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wrapUp"
+        android:layout_margin="10dp"
+        android:text=""/>
 </LinearLayout>
 </ScrollView>

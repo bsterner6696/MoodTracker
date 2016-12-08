@@ -7,7 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class DisplayDatabaseActivity extends AppCompatActivity {
 
@@ -21,7 +24,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_database);
 
         SQLiteDatabase moodsDB = null;
-        TextView textView = null;
+        TextView moodTextView = null;
         try {
             moodsDB = this.openOrCreateDatabase("moods", MODE_PRIVATE, null);
             Cursor c = moodsDB.rawQuery("SELECT * FROM moods", null);
@@ -45,10 +48,11 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
 
                 } while (c.moveToNext());
             }
-            textView = new TextView(this);
-            textView.setTextSize(12);
-            textView.setText(message);
-            layout.addView(textView);
+            moodTextView = (TextView)findViewById(R.id.moodList);
+
+            moodTextView.setTextSize(12);
+            moodTextView.setText(message);
+            layout.addView(moodTextView);
         } catch (Throwable T) {
             System.out.print(T);
         } finally {
@@ -75,7 +79,7 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
 
                 } while (checkInsCursor.moveToNext());
             }
-            checkInsTextView = new TextView(this);
+            checkInsTextView = (TextView) findViewById(R.id.checkInList);
             checkInsTextView.setTextSize(12);
             checkInsTextView.setText(checkInsList);
             layout.addView(checkInsTextView);
@@ -104,7 +108,8 @@ public class DisplayDatabaseActivity extends AppCompatActivity {
 
                 } while (eventsCursor.moveToNext());
             }
-            TextView eventsTextView = new TextView(this);
+            TextView eventsTextView = (TextView)findViewById(R.id.eventList);
+
             eventsTextView.setTextSize(12);
             eventsTextView.setText(eventsList);
             layout.addView(eventsTextView);

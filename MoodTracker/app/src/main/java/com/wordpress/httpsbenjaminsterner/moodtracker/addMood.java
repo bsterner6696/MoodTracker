@@ -55,6 +55,7 @@ public class addMood extends AppCompatActivity {
     private Button reasonButton;
     private Button restartButton;
     private EditText reasonEditText;
+    private TextView wrapUpText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class addMood extends AppCompatActivity {
         reasonButton = (Button) findViewById(R.id.reasonButton);
         restartButton = (Button) findViewById(R.id.restartMoodButton);
         reasonEditText = (EditText) findViewById(R.id.reason);
+        wrapUpText = (TextView)findViewById(R.id.wrapUp);
         layout.removeAllViews();
         layout.addView(homeButton);
         layout.addView(moodText);
@@ -139,12 +141,8 @@ public class addMood extends AppCompatActivity {
     }
     public void SelectHasReason(View view){
         String wrapUp = "You have selected:\nMood: " + selectedMood+"\nSeverity: "+ selectedSeverity+"\nHas Reason?: "+selectedHasReason+"\nWould you like to add the mood, or start the mood entry over?";
-        TextView wrapUpText = new TextView(this);
         wrapUpText.setText(wrapUp);
         wrapUpText.setTextSize(20);
-        LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-        marginParams.setMargins(10, 10, 10, 10);
-        wrapUpText.setLayoutParams(marginParams);
         if (selectedHasReason){
             ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
             layout.removeAllViews();
@@ -174,19 +172,9 @@ public class addMood extends AppCompatActivity {
             @Override
             public void run() {
                 try  {
-                    //Your code goes here
 
                     try {
-                        /// if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        // return;
-                        // }
+
                         String longitude = "-120";
                         String latitude = "30";
 

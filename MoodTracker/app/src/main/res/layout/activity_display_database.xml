@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <Button
+    <!--<Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Another Mood"
@@ -18,11 +18,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Another Event"
-        android:onClick="addEvent"/>
+        android:onClick="addEvent"/>-->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Home"
         android:onClick="GoHome"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/moodList"
+        android:layout_margin="10dp"
+        android:text=""/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkInList"
+        android:layout_margin="10dp"
+        android:text=""/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventList"
+        android:layout_margin="10dp"
+        android:text=""/>
 </LinearLayout>
 </ScrollView>
