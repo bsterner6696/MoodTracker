@@ -42,28 +42,32 @@
             android:id="@+id/dietText"
             android:layout_margin="10dp"
             android:linksClickable="true"
-            android:text="@string/diet_summary" />
+            android:text="@string/diet_summary"
+            android:visibility="gone"/>
 
         <Spinner
             android:id="@+id/diet_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:entries="@array/diet_array" />
+            android:entries="@array/diet_array"
+            android:visibility="gone"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/selectDiet"
             android:text="Continue"
             android:layout_margin="10dp"
-            android:onClick="SelectDiet" />
+            android:onClick="SelectDiet"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Enter the number of hours you were physically active today."
-            android:id="@+id/activityText" />
+            android:id="@+id/activityText"
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/hours_of_activity"
@@ -72,20 +76,23 @@
             android:layout_margin="10dp"
             android:inputType="number"
             android:hint="Hours Of Activity"
-            android:gravity="top" />
+            android:gravity="top"
+            android:visibility="gone"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/selectActivity"
             android:text="Continue"
             android:layout_margin="10dp"
-            android:onClick="SelectActivity" />
+            android:onClick="SelectActivity"
+            android:visibility="gone"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:id="@+id/sleepText"
-            android:text="Enter the number of hours of sleep you had last night and/or today.  Do not enter the number of hours of sleep you are about to have." />
+            android:text="Enter the number of hours of sleep you had last night and/or today.  Do not enter the number of hours of sleep you are about to have."
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/hours_of_sleep"
@@ -94,7 +101,8 @@
             android:layout_margin="10dp"
             android:inputType="number"
             android:hint="Hours Of Sleep"
-            android:gravity="top" />
+            android:gravity="top"
+            android:visibility="gone"/>
 
         <Button
             android:layout_width="match_parent"
@@ -102,7 +110,8 @@
             android:id="@+id/addCheckIn"
             android:text="Check In"
             android:layout_margin="10dp"
-            android:onClick="addCheckIn" />
+            android:onClick="addCheckIn"
+            android:visibility="gone"/>
 
 
     </LinearLayout>

@@ -41,53 +41,17 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class addMood extends AppCompatActivity {
 
     private boolean selectedHasReason = true;
-    private Button homeButton;
-    private TextView moodText;
-    private Spinner moodSpinner;
-    private Button moodButton;
-    private Spinner severitySpinner;
-    private TextView severityText;
-    private Button severityButton;
-    private TextView hasReasonText;
-    private RadioGroup reasonRadio;
-    private Button hasReasonButton;
-    private EditText reason;
-    private Button reasonButton;
-    private Button restartButton;
-    private EditText reasonEditText;
-    private TextView wrapUpText;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_mood);
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
-        homeButton = (Button) findViewById(R.id.homeButton);
-        moodText = (TextView) findViewById(R.id.moodText);
-        moodSpinner = (Spinner) findViewById(R.id.mood_spinner);
-        moodButton = (Button) findViewById(R.id.moodButton);
-        severityText = (TextView) findViewById(R.id.severityText);
-        severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
-        severityButton = (Button) findViewById(R.id.severityButton);
-        hasReasonText = (TextView) findViewById(R.id.reasonText);
-        reasonRadio = (RadioGroup) findViewById(R.id.reasonRadio);
-        hasReasonButton = (Button) findViewById(R.id.hasReasonButton);
-        reason = (EditText) findViewById(R.id.reason);
-        reasonButton = (Button) findViewById(R.id.reasonButton);
-        restartButton = (Button) findViewById(R.id.restartMoodButton);
-        reasonEditText = (EditText) findViewById(R.id.reason);
-        wrapUpText = (TextView)findViewById(R.id.wrapUp);
-        layout.removeAllViews();
-        layout.addView(homeButton);
-        layout.addView(moodText);
-        layout.addView(moodSpinner);
-        layout.addView(moodButton);
-
-
-    }
     private String weather = "";
     private String selectedMood = "";
     private int selectedSeverity = 0;
     private String selectedReason = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_mood);
+    }
+
 
     public static class Moods implements BaseColumns {
         public static final String TABLE_NAME = "moods";
@@ -119,46 +83,58 @@ public class addMood extends AppCompatActivity {
         }
     }
     public void SelectMood(View view){
+        TextView moodText = (TextView) findViewById(R.id.moodText);
+        Spinner moodSpinner = (Spinner) findViewById(R.id.mood_spinner);
+        Button moodButton = (Button) findViewById(R.id.moodButton);
+        TextView severityText = (TextView) findViewById(R.id.severityText);
+        Spinner severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
+        Button severityButton = (Button) findViewById(R.id.severityButton);
         selectedMood = String.valueOf(moodSpinner.getSelectedItem());
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
-        layout.removeAllViews();
-        layout.addView(homeButton);
-        layout.addView(severityText);
-        layout.addView(severitySpinner);
-        layout.addView(severityButton);
+        moodText.setVisibility(view.GONE);
+        moodSpinner.setVisibility(view.GONE);
+        moodButton.setVisibility(view.GONE);
+        severityText.setVisibility(view.VISIBLE);
+        severitySpinner.setVisibility(view.VISIBLE);
+        severityButton.setVisibility(view.VISIBLE);
     }
 
     public void SelectSeverity(View view){
-
+        TextView severityText = (TextView) findViewById(R.id.severityText);
+        Spinner severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
+        Button severityButton = (Button) findViewById(R.id.severityButton);
         selectedSeverity = Integer.parseInt(String.valueOf(severitySpinner.getSelectedItem()));
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
-        layout.removeAllViews();
+        severityText.setVisibility(view.GONE);
+        severitySpinner.setVisibility(view.GONE);
+        severityButton.setVisibility(view.GONE);
+        TextView hasReasonText = (TextView) findViewById(R.id.reasonText);
+        RadioGroup reasonRadio = (RadioGroup) findViewById(R.id.reasonRadio);
+        Button hasReasonButton = (Button) findViewById(R.id.hasReasonButton);
+        hasReasonText.setVisibility(view.VISIBLE);
+        reasonRadio.setVisibility(view.VISIBLE);
+        hasReasonButton.setVisibility(view.VISIBLE);
 
-        layout.addView(homeButton);
-        layout.addView(hasReasonText);
-        layout.addView(reasonRadio);
-        layout.addView(hasReasonButton);
     }
     public void SelectHasReason(View view){
+        TextView hasReasonText = (TextView) findViewById(R.id.reasonText);
+        RadioGroup reasonRadio = (RadioGroup) findViewById(R.id.reasonRadio);
+        Button hasReasonButton = (Button) findViewById(R.id.hasReasonButton);
+        hasReasonText.setVisibility(view.GONE);
+        reasonRadio.setVisibility(view.GONE);
+        hasReasonButton.setVisibility(view.GONE);
+        Button reasonButton = (Button) findViewById(R.id.reasonButton);
+        Button restartButton = (Button) findViewById(R.id.restartMoodButton);
+        EditText reasonEditText = (EditText) findViewById(R.id.reason);
+        TextView wrapUpText = (TextView)findViewById(R.id.wrapUp);
         String wrapUp = "You have selected:\nMood: " + selectedMood+"\nSeverity: "+ selectedSeverity+"\nHas Reason?: "+selectedHasReason+"\nWould you like to add the mood, or start the mood entry over?";
         wrapUpText.setText(wrapUp);
         wrapUpText.setTextSize(20);
         if (selectedHasReason){
-            ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
-            layout.removeAllViews();
-            layout.addView(homeButton);
-            layout.addView(reason);
-            layout.addView(wrapUpText);
-            layout.addView(reasonButton);
-            layout.addView(restartButton);
-        }else {
-            ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_mood);
-            layout.removeAllViews();
-            layout.addView(homeButton);
-            layout.addView(wrapUpText);
-            layout.addView(reasonButton);
-            layout.addView(restartButton);
+            reasonEditText.setVisibility(view.VISIBLE);
         }
+        wrapUpText.setVisibility(view.VISIBLE);
+        reasonButton.setVisibility(view.VISIBLE);
+        restartButton.setVisibility(view.VISIBLE);
+
     }
     public void RestartSelection(View view){
         Intent intent = new Intent(this, addMood.class);
@@ -166,6 +142,7 @@ public class addMood extends AppCompatActivity {
     }
     public void SelectReason(View view) throws InterruptedException {
         weather = "";
+        EditText reasonEditText = (EditText) findViewById(R.id.reason);
         selectedReason = reasonEditText.getText().toString();
         Thread thread = new Thread(new Runnable() {
 

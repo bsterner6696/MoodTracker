@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/activityText"
             android:layout_margin="10dp"
-            android:text="Enter the number of hours you are physically active on an average day." />
+            android:text="Enter the number of hours you are physically active on an average day."
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/hours_of_activity"
@@ -53,20 +54,23 @@
             android:layout_margin="10dp"
             android:inputType="number"
             android:hint="Hours Of Activity"
-            android:gravity="top" />
+            android:gravity="top"
+            android:visibility="gone"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/activityButton"
             android:text="Continue"
             android:layout_margin="10dp"
-            android:onClick="selectActivity" />
+            android:onClick="selectActivity"
+            android:visibility="gone"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sleepText"
             android:layout_margin="10dp"
-            android:text="Enter the number of hours of sleep you get on an average day." />
+            android:text="Enter the number of hours of sleep you get on an average day."
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/hours_of_sleep"
@@ -75,13 +79,15 @@
             android:layout_margin="10dp"
             android:inputType="number"
             android:hint="Hours Of Sleep"
-            android:gravity="top" />
+            android:gravity="top"
+            android:visibility="gone"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/averageDayButton"
             android:text="Set Average Day"
             android:layout_margin="10dp"
-            android:onClick="setAverageDay" />
+            android:onClick="setAverageDay"
+            android:visibility="gone"/>
     </LinearLayout>
 </ScrollView>

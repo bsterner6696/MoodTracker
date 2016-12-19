@@ -21,21 +21,21 @@
         android:text="Add Another Event"
         android:onClick="addEvent"/>-->
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Home"
-        android:onClick="GoHome"/>
+        android:onClick="GoHome" />
     <Button
         android:id="@+id/scrollCheckIns"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Scroll To Check Ins"
         android:layout_margin="10dp"
         android:onClick="ScrollCheckIns"/>
     <Button
         android:id="@+id/scrollEvents"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Scroll To Events"
         android:layout_margin="10dp"

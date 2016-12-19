@@ -14,17 +14,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class AverageDay extends AppCompatActivity {
-    private TextView dietText;
-    private Button homeButton;
-    private Spinner dietSpinner;
-    private Button dietButton;
-    private TextView activityText;
-    private EditText activityEditText;
-    private Button activityButton;
-    private TextView sleepText;
-    private EditText sleepEditText;
-    private Button averageDayButton;
     private String diet;
     private String hoursOfActivity;
     private String hoursOfSleep;
@@ -32,23 +24,8 @@ public class AverageDay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_average_day);
-        dietText = (TextView)findViewById(R.id.dietText);
+        TextView dietText = (TextView)findViewById(R.id.dietText);
         dietText.setMovementMethod(LinkMovementMethod.getInstance());
-        homeButton = (Button)findViewById(R.id.homeButton);
-        dietSpinner = (Spinner)findViewById(R.id.diet_spinner);
-        dietButton = (Button) findViewById(R.id.dietButton);
-        activityText=(TextView)findViewById(R.id.activityText);
-        activityEditText=(EditText)findViewById(R.id.hours_of_activity);
-        activityButton = (Button)findViewById(R.id.activityButton);
-        sleepText = (TextView)findViewById(R.id.sleepText);
-        sleepEditText = (EditText) findViewById(R.id.hours_of_sleep);
-        averageDayButton = (Button)findViewById(R.id.averageDayButton);
-        ViewGroup layout = (ViewGroup)findViewById(R.id.activity_average_day);
-        layout.removeAllViews();
-        layout.addView(homeButton);
-        layout.addView(dietText);
-        layout.addView(dietSpinner);
-        layout.addView(dietButton);
     }
     public class averageDay implements BaseColumns {
         public static final String TABLE_NAME = "averageDay";
@@ -61,26 +38,38 @@ public class AverageDay extends AppCompatActivity {
             + averageDay.COLUMN_NAME_SLEEP + " DECIMAL" + " )";
 
     public void selectDiet(View view){
+        TextView dietText = (TextView)findViewById(R.id.dietText);
+        Spinner dietSpinner = (Spinner)findViewById(R.id.diet_spinner);
+        Button dietButton = (Button) findViewById(R.id.dietButton);
         diet = getResources().getStringArray(R.array.diet_values_array)[dietSpinner.getSelectedItemPosition()];
-        ViewGroup layout = (ViewGroup)findViewById(R.id.activity_average_day);
-        layout.removeAllViews();
-        layout.addView(homeButton);
-        layout.addView(activityText);
-        layout.addView(activityEditText);
-        layout.addView(activityButton);
-
+        dietText.setVisibility(view.GONE);
+        dietSpinner.setVisibility(view.GONE);
+        dietButton.setVisibility(view.GONE);
+        TextView activityText=(TextView)findViewById(R.id.activityText);
+        EditText activityEditText =(EditText)findViewById(R.id.hours_of_activity);
+        Button activityButton = (Button)findViewById(R.id.activityButton);
+        activityText.setVisibility(view.VISIBLE);
+        activityEditText.setVisibility(view.VISIBLE);
+        activityButton.setVisibility(view.VISIBLE);
     }
     public void selectActivity(View view){
+        TextView activityText=(TextView)findViewById(R.id.activityText);
+        EditText activityEditText =(EditText)findViewById(R.id.hours_of_activity);
+        Button activityButton = (Button)findViewById(R.id.activityButton);
         hoursOfActivity = activityEditText.getText().toString();
-        ViewGroup layout = (ViewGroup)findViewById(R.id.activity_average_day);
-        layout.removeAllViews();
-        layout.addView(homeButton);
-        layout.addView(sleepText);
-        layout.addView(sleepEditText);
-        layout.addView(averageDayButton);
+        activityText.setVisibility(view.GONE);
+        activityEditText.setVisibility(view.GONE);
+        activityButton.setVisibility(view.GONE);
+        TextView sleepText = (TextView)findViewById(R.id.sleepText);
+        EditText sleepEditText = (EditText) findViewById(R.id.hours_of_sleep);
+        Button averageDayButton = (Button)findViewById(R.id.averageDayButton);
+        sleepText.setVisibility(view.VISIBLE);
+        sleepEditText.setVisibility(view.VISIBLE);
+        averageDayButton.setVisibility(view.VISIBLE);
     }
 
     public void setAverageDay(View view){
+        EditText sleepEditText = (EditText) findViewById(R.id.hours_of_sleep);
         hoursOfSleep = sleepEditText.getText().toString();
         String regex = "'";
         char[] characterArray = regex.toCharArray();
