@@ -96,8 +96,9 @@ public class CheckMoodsOverTimePeriod extends AppCompatActivity {
         int endingMonth = datePickerEnd.getMonth();
         int endingYear = datePickerEnd.getYear();
         endingMonth++;
-        String endingDateString = endingYear + "-" + endingMonth + "-" + endingDay;
-        DateTime endDate = DateTime.parse(endingDateString);
+        String pattern = "yyyy-MM-dd HH.mm.ss";
+        String endingDateString = endingYear + "-" + endingMonth + "-" + endingDay + " 23.59.59";
+        DateTime endDate = DateTime.parse(endingDateString, DateTimeFormat.forPattern(pattern));
 
         SQLiteDatabase moodsDB = null;
         SQLiteDatabase checkInsDB = null;
