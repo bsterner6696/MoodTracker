@@ -40,16 +40,20 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class addMood extends AppCompatActivity {
 
-    private boolean selectedHasReason = true;
     private String weather = "";
-    private String selectedMood = "";
-    private int selectedSeverity = 0;
-    private String selectedReason = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mood);
+        Intent thisIntent = getIntent();
+        String Reason = thisIntent.getStringExtra("EXTRA_REASON");
+        String Mood = thisIntent.getStringExtra("EXTRA_MOOD");
+        int Severity = thisIntent.getIntExtra("EXTRA_SEVERITY", 1);
+        Boolean selectedHasReason = thisIntent.getBooleanExtra("EXTRA_HAS_REASON", true);
+        TextView wrapUp = (TextView) findViewById(R.id.wrapUp);
+        wrapUp.setText("You have selected '"+ Mood + "' with a severity of "+Severity+ ".  Press 'Add Mood' to add this mood.");
+
     }
 
 
@@ -66,84 +70,8 @@ public class addMood extends AppCompatActivity {
             + addMood.Moods.COLUMN_NAME_REASON + " VARCHAR," + addMood.Moods.COLUMN_NAME_TIME + " TIMESTAMP," + Moods.COLUMN_NAME_WEATHER + " VARCHAR, "+ Moods.COLUMN_NAME_SEVERITY + " INTEGER )";
 
     public static String CreateDatabase(){ return MOODS_CREATE_ENTRIES; }
-    public void onRadioButtonClicked(View view){
-        boolean checked = ((RadioButton) view).isChecked();
 
-        switch (view.getId()){
-            case R.id.radio_has_reason:
-                if(checked){
-                    selectedHasReason = true;
-                }
-                break;
-            case R.id.radio_no_reason:
-                if(checked){
-                    selectedHasReason = false;
-                }
-                break;
-        }
-    }
-    public void SelectMood(View view){
-        TextView moodText = (TextView) findViewById(R.id.moodText);
-        Spinner moodSpinner = (Spinner) findViewById(R.id.mood_spinner);
-        Button moodButton = (Button) findViewById(R.id.moodButton);
-        TextView severityText = (TextView) findViewById(R.id.severityText);
-        Spinner severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
-        Button severityButton = (Button) findViewById(R.id.severityButton);
-        selectedMood = String.valueOf(moodSpinner.getSelectedItem());
-        moodText.setVisibility(view.GONE);
-        moodSpinner.setVisibility(view.GONE);
-        moodButton.setVisibility(view.GONE);
-        severityText.setVisibility(view.VISIBLE);
-        severitySpinner.setVisibility(view.VISIBLE);
-        severityButton.setVisibility(view.VISIBLE);
-    }
-
-    public void SelectSeverity(View view){
-        TextView severityText = (TextView) findViewById(R.id.severityText);
-        Spinner severitySpinner = (Spinner) findViewById(R.id.severity_spinner);
-        Button severityButton = (Button) findViewById(R.id.severityButton);
-        selectedSeverity = Integer.parseInt(String.valueOf(severitySpinner.getSelectedItem()));
-        severityText.setVisibility(view.GONE);
-        severitySpinner.setVisibility(view.GONE);
-        severityButton.setVisibility(view.GONE);
-        TextView hasReasonText = (TextView) findViewById(R.id.reasonText);
-        RadioGroup reasonRadio = (RadioGroup) findViewById(R.id.reasonRadio);
-        Button hasReasonButton = (Button) findViewById(R.id.hasReasonButton);
-        hasReasonText.setVisibility(view.VISIBLE);
-        reasonRadio.setVisibility(view.VISIBLE);
-        hasReasonButton.setVisibility(view.VISIBLE);
-
-    }
-    public void SelectHasReason(View view){
-        TextView hasReasonText = (TextView) findViewById(R.id.reasonText);
-        RadioGroup reasonRadio = (RadioGroup) findViewById(R.id.reasonRadio);
-        Button hasReasonButton = (Button) findViewById(R.id.hasReasonButton);
-        hasReasonText.setVisibility(view.GONE);
-        reasonRadio.setVisibility(view.GONE);
-        hasReasonButton.setVisibility(view.GONE);
-        Button reasonButton = (Button) findViewById(R.id.reasonButton);
-        Button restartButton = (Button) findViewById(R.id.restartMoodButton);
-        EditText reasonEditText = (EditText) findViewById(R.id.reason);
-        TextView wrapUpText = (TextView)findViewById(R.id.wrapUp);
-        String wrapUp = "You have selected:\nMood: " + selectedMood+"\nSeverity: "+ selectedSeverity+"\nHas Reason?: "+selectedHasReason+"\nWould you like to add the mood, or start the mood entry over?";
-        wrapUpText.setText(wrapUp);
-        wrapUpText.setTextSize(20);
-        if (selectedHasReason){
-            reasonEditText.setVisibility(view.VISIBLE);
-        }
-        wrapUpText.setVisibility(view.VISIBLE);
-        reasonButton.setVisibility(view.VISIBLE);
-        restartButton.setVisibility(view.VISIBLE);
-
-    }
-    public void RestartSelection(View view){
-        Intent intent = new Intent(this, addMood.class);
-        startActivity(intent);
-    }
-    public void SelectReason(View view) throws InterruptedException {
-        weather = "";
-        EditText reasonEditText = (EditText) findViewById(R.id.reason);
-        selectedReason = reasonEditText.getText().toString();
+    public void AddMood(View view) throws InterruptedException {
         Thread thread = new Thread(new Runnable() {
 
             @Override
@@ -211,11 +139,11 @@ public class addMood extends AppCompatActivity {
 
 
         Intent intent = new Intent(this, DisplayDatabaseActivity.class);
-        String Reason = selectedReason;
-
-        String Mood = selectedMood;
-
-        int Severity = selectedSeverity;
+        Intent thisIntent = getIntent();
+        String Reason = thisIntent.getStringExtra("EXTRA_REASON");
+        String Mood = thisIntent.getStringExtra("EXTRA_MOOD");
+        int Severity = thisIntent.getIntExtra("EXTRA_SEVERITY", 1);
+        Boolean selectedHasReason = thisIntent.getBooleanExtra("EXTRA_HAS_REASON", true);
         SQLiteDatabase moodsDB = null;
         try {
             moodsDB = this.openOrCreateDatabase("moods", MODE_PRIVATE, null);

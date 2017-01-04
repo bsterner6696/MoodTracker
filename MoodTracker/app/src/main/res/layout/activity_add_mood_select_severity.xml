@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android='http://schemas.android.com/apk/res/android'
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_add_mood_select_severity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homeButton"
+            android:text="Home"
+            android:layout_margin="10dp"
+            android:onClick="GoHome"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/severityText"
+            android:layout_margin="10dp"
+            android:text="Enter the severity of the mood, with 1 being 'barely noticeable' and 10 being 'the most intense feeling to ever be felt'."
+            />
+        <Spinner
+            android:id="@+id/severity_spinner"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/severity_array" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/severityButton"
+            android:text="Select Severity"
+            android:layout_margin="10dp"
+            android:onClick="SelectSeverity" />
+        
+    </LinearLayout>
+</ScrollView>

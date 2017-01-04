@@ -103,7 +103,7 @@ public class MoodBar {
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                new Intent(context, addMood.class),
+                                new Intent(context, AddMoodSelectMood.class),
                                 //new Intent(Intent.ACTION_SCREEN_OFF),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
 

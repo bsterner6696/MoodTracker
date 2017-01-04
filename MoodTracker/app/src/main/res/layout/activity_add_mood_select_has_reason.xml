@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android='http://schemas.android.com/apk/res/android'
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_add_mood_select_has_reason"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homeButton"
+            android:text="Home"
+            android:layout_margin="10dp"
+            android:onClick="GoHome"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reasonText"
+            android:layout_margin="10dp"
+            android:text="Do you have a discernible reason to be feeling the mood in question?"
+           />
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reasonRadio"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            >
+            <RadioButton android:id="@+id/radio_has_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Has Reason"
+                android:onClick="onRadioButtonClicked"/>
+            <RadioButton android:id="@+id/radio_no_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Reason"
+                android:onClick="onRadioButtonClicked"/>
+        </RadioGroup>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hasReasonButton"
+            android:text="Continue"
+            android:layout_margin="10dp"
+            android:onClick="SelectHasReason"
+            />
+
+    </LinearLayout>
+</ScrollView>
